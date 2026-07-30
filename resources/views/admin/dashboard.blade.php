@@ -1,18 +1,18 @@
 @php
     $stats = [
-        ['title' => 'Total Freshers', 'value' => '12,560', 'change' => '12%', 'icon' => 'FR'],
-        ['title' => 'Companies', 'value' => '2,350', 'change' => '8%', 'icon' => 'CO'],
-        ['title' => 'Training Partners', 'value' => '320', 'change' => '5%', 'icon' => 'TP'],
-        ['title' => 'Jobs Posted', 'value' => '4,850', 'change' => '15%', 'icon' => 'JB'],
-        ['title' => 'Applications', 'value' => '18,750', 'change' => '18%', 'icon' => 'AP'],
-        ['title' => 'Courses', 'value' => '1,250', 'change' => '10%', 'icon' => 'CR'],
+        ['title' => 'Total Freshers', 'value' => '12,560', 'change' => '12%', 'icon' => 'users'],
+        ['title' => 'Companies', 'value' => '2,350', 'change' => '8%', 'icon' => 'building'],
+        ['title' => 'Training Partners', 'value' => '320', 'change' => '5%', 'icon' => 'book'],
+        ['title' => 'Jobs Posted', 'value' => '4,850', 'change' => '15%', 'icon' => 'briefcase'],
+        ['title' => 'Applications', 'value' => '18,750', 'change' => '18%', 'icon' => 'file'],
+        ['title' => 'Courses', 'value' => '1,250', 'change' => '10%', 'icon' => 'book'],
     ];
 
     $activities = [
-        ['title' => 'New Company Registered', 'text' => 'TechNova Solutions', 'time' => '2 min ago', 'icon' => 'CO'],
-        ['title' => 'New Course Added', 'text' => 'Full Stack Development', 'time' => '15 min ago', 'icon' => 'CR'],
-        ['title' => 'New Fresher Registered', 'text' => 'Ananya Gupta', 'time' => '30 min ago', 'icon' => 'FR'],
-        ['title' => 'Job Posted', 'text' => 'Frontend Developer', 'time' => '45 min ago', 'icon' => 'JB'],
+        ['title' => 'New Company Registered', 'text' => 'TechNova Solutions', 'time' => '2 min ago', 'icon' => 'CO', 'type' => 'Companies'],
+        ['title' => 'New Course Added', 'text' => 'Full Stack Development', 'time' => '15 min ago', 'icon' => 'CR', 'type' => 'Courses'],
+        ['title' => 'New Fresher Registered', 'text' => 'Ananya Gupta', 'time' => '30 min ago', 'icon' => 'FR', 'type' => 'Freshers'],
+        ['title' => 'Job Posted', 'text' => 'Frontend Developer', 'time' => '45 min ago', 'icon' => 'JB', 'type' => 'Jobs'],
     ];
 
     $quickLinks = [
@@ -115,6 +115,16 @@
             font-size: 11px;
         }
 
+        .menu-icon svg {
+            width: 17px;
+            height: 17px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
         .admin-profile {
             display: flex;
             align-items: center;
@@ -126,6 +136,16 @@
             width: 48px;
             height: 48px;
             border-radius: 50%;
+        }
+
+        .profile-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .admin-profile h3 {
@@ -146,10 +166,12 @@
         }
 
         .top-bar {
+            position: relative;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 34px;
+            padding-right: 62px;
         }
 
         .welcome h1 {
@@ -192,6 +214,22 @@
             font-weight: 700;
         }
 
+        .top-actions .user-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .user-button svg {
+            width: 23px;
+            height: 23px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -225,6 +263,16 @@
             height: 38px;
             border-radius: 50%;
             font-size: 11px;
+        }
+
+        .card-icon svg {
+            width: 21px;
+            height: 21px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .stat-card p {
@@ -281,7 +329,8 @@
             font-weight: 600;
         }
 
-        .small-button {
+        .small-button,
+        .small-select {
             border: 1px solid #dce7f8;
             border-radius: 6px;
             background: white;
@@ -289,12 +338,22 @@
             padding: 8px 12px;
             font-size: 12px;
             font-weight: 600;
+            outline: none;
+        }
+
+        .small-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             cursor: pointer;
             line-height: 1;
+        }
+
+        .small-select {
+            cursor: pointer;
+            font-weight: 700;
+            padding-right: 26px;
         }
 
         .small-button::after {
@@ -438,11 +497,18 @@
                 </div>
 
                 <div class="top-actions">
-                    <select class="month-select">
+                    <select class="month-select dashboard-stats-period">
                         <option>This Month</option>
                         <option>Last Month</option>
+                        <option>Last Six Months</option>
+                        <option>Last Year</option>
                     </select>
-                    <div class="user-button">AD</div>
+                    <div class="user-button">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="8" r="4"></circle>
+                            <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
+                        </svg>
+                    </div>
                 </div>
             </div>
 
@@ -450,10 +516,12 @@
                 @foreach ($stats as $stat)
                     <div class="stat-card">
                         <div class="stat-top">
-                            <div class="card-icon">{{ $stat['icon'] }}</div>
+                            <div class="card-icon">
+                                @include('admin.partials.report-icon', ['icon' => $stat['icon']])
+                            </div>
                             <div>
                                 <p>{{ $stat['title'] }}</p>
-                                <h2>{{ $stat['value'] }}</h2>
+                                <h2 class="dashboard-stat-value" data-stat-index="{{ $loop->index }}">{{ $stat['value'] }}</h2>
                             </div>
                         </div>
                         <div class="change">↑ {{ $stat['change'] }} <span>vs last month</span></div>
@@ -465,11 +533,17 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h2>Recent Activities</h2>
-                        <button class="small-button">View All Activities</button>
+                        <select id="activityFilter" class="small-select">
+                            <option value="All">View All Activities</option>
+                            <option value="Companies">Companies</option>
+                            <option value="Courses">Courses</option>
+                            <option value="Freshers">Freshers</option>
+                            <option value="Jobs">Jobs</option>
+                        </select>
                     </div>
 
                     @foreach ($activities as $activity)
-                        <div class="activity-row">
+                        <div class="activity-row" data-type="{{ $activity['type'] }}">
                             <div class="activity-icon">{{ $activity['icon'] }}</div>
                             <div class="row-content">
                                 <h3>{{ $activity['title'] }}</h3>
@@ -502,7 +576,12 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h2>Fresher Registrations</h2>
-                        <button class="small-button" type="button">This Month</button>
+                        <select class="small-select fresher-chart-period">
+                            <option>This Month</option>
+                            <option>Last Month</option>
+                            <option>Last Six Months</option>
+                            <option>Last Year</option>
+                        </select>
                     </div>
                     <div class="line-chart-box">
                         <canvas id="fresherChart"></canvas>
@@ -512,7 +591,12 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h2>Applications Received</h2>
-                        <button class="small-button" type="button">This Month</button>
+                        <select class="small-select applications-period">
+                            <option>This Month</option>
+                            <option>Last Month</option>
+                            <option>Last Six Months</option>
+                            <option>Last Year</option>
+                        </select>
                     </div>
                     <div class="chart">
                         <div class="bar" style="height: 25%"></div>
@@ -542,9 +626,36 @@
     </div>
 
     <script>
-        const fresherChartData = {
-            labels: ["1 May", "6 May", "11 May", "16 May", "21 May", "26 May", "31 May"],
-            values: [2000, 1200, 4100, 3200, 5400, 3000, 5000, 4400, 6500, 6400, 7500],
+        const dashboardData = {
+            "This Month": {
+                stats: ["12,560", "2,350", "320", "4,850", "18,750", "1,250"],
+                labels: ["1 May", "6 May", "11 May", "16 May", "21 May", "26 May", "31 May"],
+                freshers: [2000, 1200, 4100, 3200, 5400, 3000, 5000, 4400, 6500, 6400, 7500],
+                applications: [25, 48, 36, 62, 28, 50, 35, 82, 68, 96, 74, 42, 62, 35],
+            },
+            "Last Month": {
+                stats: ["10,940", "2,110", "305", "4,210", "15,880", "1,080"],
+                labels: ["1 Apr", "6 Apr", "11 Apr", "16 Apr", "21 Apr", "26 Apr", "30 Apr"],
+                freshers: [1600, 2100, 3000, 2600, 4200, 3900, 5200, 4800, 5800, 6100, 6900],
+                applications: [30, 42, 55, 40, 34, 62, 58, 70, 64, 78, 67, 52, 46, 60],
+            },
+            "Last Six Months": {
+                stats: ["68,420", "12,870", "1,780", "24,950", "96,300", "6,720"],
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                freshers: [2400, 3600, 4700, 5400, 6500, 7600],
+                applications: [38, 46, 52, 66, 72, 80, 88, 76, 69, 84, 91, 73, 82, 95],
+            },
+            "Last Year": {
+                stats: ["1,42,800", "28,450", "3,920", "57,600", "2,18,900", "14,500"],
+                labels: ["Jan", "Mar", "May", "Jul", "Sep", "Nov", "Dec"],
+                freshers: [3200, 4200, 5800, 6900, 7400, 6800, 7900],
+                applications: [45, 52, 59, 63, 71, 76, 68, 82, 88, 93, 86, 78, 90, 96],
+            },
+        };
+
+        let fresherChartData = {
+            labels: dashboardData["This Month"].labels,
+            values: dashboardData["This Month"].freshers,
         };
 
         function drawLineChart(canvasId, chartData) {
@@ -627,6 +738,50 @@
                 ctx.fillText(label, x - 16, height - 8);
             });
         }
+
+        function updateDashboardStats(period) {
+            const data = dashboardData[period];
+            document.querySelectorAll(".dashboard-stat-value").forEach((item) => {
+                item.textContent = data.stats[item.dataset.statIndex];
+            });
+        }
+
+        function updateFresherChart(period) {
+            const data = dashboardData[period];
+            fresherChartData = {
+                labels: data.labels,
+                values: data.freshers,
+            };
+            drawLineChart("fresherChart", fresherChartData);
+        }
+
+        function updateApplicationBars(period) {
+            const data = dashboardData[period];
+            document.querySelectorAll(".bar").forEach((bar, index) => {
+                bar.style.height = data.applications[index] + "%";
+            });
+        }
+
+        document.querySelector(".dashboard-stats-period").addEventListener("change", (event) => {
+            updateDashboardStats(event.target.value);
+        });
+
+        document.querySelector(".fresher-chart-period").addEventListener("change", (event) => {
+            updateFresherChart(event.target.value);
+        });
+
+        document.querySelector(".applications-period").addEventListener("change", (event) => {
+            updateApplicationBars(event.target.value);
+        });
+
+        document.getElementById("activityFilter").addEventListener("change", (event) => {
+            const selectedType = event.target.value;
+
+            document.querySelectorAll(".activity-row").forEach((row) => {
+                const shouldShow = selectedType === "All" || row.dataset.type === selectedType;
+                row.style.display = shouldShow ? "flex" : "none";
+            });
+        });
 
         drawLineChart("fresherChart", fresherChartData);
         window.addEventListener("resize", () => drawLineChart("fresherChart", fresherChartData));

@@ -582,6 +582,159 @@
             }
         }
 
+        @media (max-width: 900px) {
+            .nav-content {
+                flex-direction: column;
+                align-items: center;
+                gap: 18px;
+            }
+
+            .nav-content > .logo {
+                margin-left: 0;
+            }
+
+            .logo-image {
+                width: 210px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .menu {
+                display: grid;
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 14px;
+            }
+
+            .menu a {
+                padding: 0 0 8px;
+            }
+
+            .menu .active {
+                width: 150px;
+                margin: auto;
+            }
+
+            .nav-buttons {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 8px;
+                width: 100%;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .copyright-links {
+                gap: 18px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        .side-menu-button,
+        .close-menu-button,
+        .mobile-sidebar {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .nav-content {
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: space-between;
+                padding: 12px 0;
+            }
+
+            .logo-image {
+                width: 185px;
+            }
+
+            .menu,
+            .nav-buttons {
+                display: none !important;
+            }
+
+            .side-menu-button {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 42px;
+                height: 42px;
+                border: 1px solid #a9c5f6;
+                border-radius: 7px;
+                background: white;
+                color: #075fe4;
+                font-size: 24px;
+                font-weight: 700;
+            }
+
+            .mobile-sidebar {
+                position: fixed;
+                top: 0;
+                right: -260px;
+                z-index: 50;
+                width: 230px;
+                height: 100vh;
+                padding: 42px 16px 20px;
+                box-sizing: border-box;
+                background: white;
+                border-left: 1px solid #dce7f8;
+                box-shadow: -10px 0 25px rgba(6, 25, 66, 0.12);
+                display: block;
+                transition: 0.25s;
+            }
+
+            .mobile-sidebar.show {
+                right: 0;
+            }
+
+            .close-menu-button {
+                position: absolute;
+                top: 10px;
+                right: 12px;
+                display: inline-flex;
+                border: 0;
+                background: white;
+                color: #061942;
+                font-size: 24px;
+            }
+
+            .side-links {
+                display: grid;
+                gap: 14px;
+                text-align: center;
+                font-size: 13px;
+                font-weight: 700;
+            }
+
+            .side-links a {
+                padding-bottom: 8px;
+            }
+
+            .side-links .active {
+                color: #075fe4;
+                border-bottom: 2px solid #075fe4;
+                width: 150px;
+                margin: auto;
+            }
+
+            .side-buttons {
+                display: grid;
+                gap: 8px;
+                margin-top: 16px;
+            }
+
+            .side-buttons .button {
+                padding: 11px 16px;
+            }
+        }
+
         h1,
         h2,
         h3 {
@@ -615,6 +768,8 @@
                 <img src="{{ asset('ofclogo1.png') }}" alt="OnlyFreshers Logo" class="logo-image">
             </a>
 
+            <button class="side-menu-button" type="button" onclick="toggleMobileMenu()">☰</button>
+
             <nav class="menu">
                 <a href="/">Home</a>
                 <a href="/job">Jobs</a>
@@ -629,6 +784,21 @@
             </div>
         </div>
     </header>
+
+    <div id="mobileSidebar" class="mobile-sidebar">
+        <button class="close-menu-button" type="button" onclick="toggleMobileMenu()">×</button>
+        <nav class="side-links">
+            <a href="/">Home</a>
+            <a href="/job">Jobs</a>
+            <a href="/fast-track">Fast Track Program</a>
+            <a href="/training-partners" class="active">Training Partners</a>
+            <a href="/about">About Us</a>
+        </nav>
+        <div class="side-buttons">
+            <a href="#" class="button outline-button">Login</a>
+            <a href="#" class="button blue-button">Register</a>
+        </div>
+    </div>
 
     <main class="main-section">
         <div class="container">
@@ -961,6 +1131,11 @@
             document.getElementById("partnerListing").classList.remove("hide");
             document.getElementById("partnerDetail").classList.remove("show");
             window.scrollTo(0, 0);
+        }
+    </script>
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById('mobileSidebar').classList.toggle('show');
         }
     </script>
 </body>

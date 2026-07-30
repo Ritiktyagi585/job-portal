@@ -312,8 +312,11 @@
 
         .password-eye {
             padding: 0 18px;
+            border: 0;
+            background: transparent;
             color: #52607a;
             font-size: 14px;
+            cursor: pointer;
         }
 
         .login-options {
@@ -409,6 +412,17 @@
             color: #075fe4;
             margin-right: 10px;
             font-weight: 700;
+        }
+
+        .login-error {
+            display: none;
+            margin: 0 0 14px;
+            padding: 10px 12px;
+            border-radius: 7px;
+            background: #fff0f1;
+            color: #ff1f2f;
+            font-size: 14px;
+            font-weight: 600;
         }
 
         @media (max-width: 1100px) {
@@ -532,12 +546,13 @@
                 <p>Fill in your details to continue</p>
             </div>
 
-            <form action="/admin/dashboard" method="GET">
+            <form id="adminLoginForm">
+                <p class="login-error" id="loginError">Email ya password galat hai.</p>
                 <div class="form-group">
                     <label for="email">Email Address</label>
                     <div class="input-box">
                         <div class="input-icon">@</div>
-                        <input type="email" id="email" placeholder="Enter email address">
+                        <input type="email" id="email" placeholder="Enter email address" value="admin@ofc.com">
                     </div>
                 </div>
 
@@ -545,8 +560,8 @@
                     <label for="password">Password</label>
                     <div class="input-box">
                         <div class="input-icon">#</div>
-                        <input type="password" id="password" placeholder="Enter password">
-                        <div class="password-eye">Show</div>
+                        <input type="password" id="password" placeholder="Enter password" value="password">
+                        <button class="password-eye" type="button" id="passwordToggle">Show</button>
                     </div>
                 </div>
 
@@ -572,5 +587,34 @@
             <p class="secure-text"><span>SH</span>Protected by enterprise-grade authentication</p>
         </section>
     </main>
+
+    <script>
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const loginError = document.getElementById('loginError');
+        const passwordToggle = document.getElementById('passwordToggle');
+
+        adminLoginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            if (emailInput.value === 'admin@ofc.com' && passwordInput.value === 'password') {
+                localStorage.setItem('onlyFreshersAdminLogin', 'yes');
+                window.location.href = '/admin/dashboard';
+            } else {
+                loginError.style.display = 'block';
+            }
+        });
+
+        passwordToggle.addEventListener('click', function () {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggle.textContent = 'Hide';
+            } else {
+                passwordInput.type = 'password';
+                passwordToggle.textContent = 'Show';
+            }
+        });
+    </script>
 </body>
 </html>

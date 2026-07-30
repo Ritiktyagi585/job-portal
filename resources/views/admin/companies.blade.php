@@ -45,17 +45,21 @@
         .menu-item.active { background: #eaf2ff; color: #075fe4; border-left: 4px solid #075fe4; }
         .menu-icon, .card-icon, .profile-icon, .company-logo { display: flex; align-items: center; justify-content: center; color: #075fe4; background: #eaf2ff; font-weight: 700; flex-shrink: 0; }
         .menu-icon { width: 28px; height: 28px; border-radius: 7px; font-size: 11px; }
+        .menu-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
         .admin-profile { display: flex; align-items: center; gap: 12px; padding: 14px 2px 0; }
         .profile-icon { width: 48px; height: 48px; border-radius: 50%; }
+        .profile-icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
         .admin-profile h3 { margin: 0 0 4px; font-size: 15px; font-weight: 600; }
         .admin-profile p { margin: 0; color: #52607a; font-size: 13px; }
         .main { padding: 36px 28px; box-sizing: border-box; }
-        .page-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px; }
+        .page-top { position: relative; display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px; padding-right: 62px; }
         .page-title h1 { margin: 0 0 14px; font-size: 30px; font-weight: 600; }
         .breadcrumb { color: #52607a; font-size: 15px; }
         .add-button { border: 0; border-radius: 7px; background: #075fe4; color: white; padding: 14px 22px; font-size: 15px; font-weight: 600; cursor: pointer; }
         .top-actions { display: flex; align-items: center; gap: 16px; }
         .user-button { width: 46px; height: 46px; border-radius: 50%; background: #eaf2ff; color: #075fe4; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+        .top-actions .user-button { position: absolute; top: 0; right: 0; }
+        .user-button svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
         .stat-card, .filter-box, .table-box { border: 1px solid #dce7f8; border-radius: 8px; background: white; box-shadow: 0 12px 25px rgba(6, 25, 66, 0.04); }
         .stat-card { padding: 20px; }
@@ -83,6 +87,7 @@
         .actions { display: flex; gap: 10px; }
         .action-button { width: 34px; height: 34px; border: 0; border-radius: 7px; color: #075fe4; background: #eef5ff; font-weight: 700; cursor: pointer; }
         .action-button.delete { color: red; background: #fff0f0; }
+        .action-button svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
         .pagination { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; color: #24344f; font-size: 14px; }
         .pages { display: flex; gap: 10px; align-items: center; }
         .page-button { min-width: 38px; height: 38px; border: 1px solid #dce7f8; border-radius: 7px; background: white; color: #24344f; font-weight: 600; }
@@ -104,7 +109,12 @@
                 </div>
                 <div class="top-actions">
                     <button class="add-button">+ Add Company</button>
-                    <div class="user-button">AD</div>
+                    <div class="user-button">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="8" r="4"></circle>
+                            <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
+                        </svg>
+                    </div>
                 </div>
             </div>
 
@@ -158,7 +168,6 @@
                 <table>
                     <thead>
                         <tr>
-                            <th><input type="checkbox"></th>
                             <th>#</th>
                             <th>Company Name</th>
                             <th>Industry</th>
@@ -177,7 +186,6 @@
                                 data-industry="{{ $company['industry'] }}"
                                 data-size="{{ $company['size'] }}"
                                 data-status="{{ $company['status'] }}">
-                                <td><input type="checkbox"></td>
                                 <td>{{ $index + 1 }}</td>
                                 <td>
                                     <div class="company-cell">
@@ -192,9 +200,26 @@
                                 <td>{{ $company['date'] }}</td>
                                 <td>
                                     <div class="actions">
-                                        <button class="action-button">V</button>
-                                        <button class="action-button">E</button>
-                                        <button class="action-button delete">D</button>
+                                        <button class="action-button" title="View">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                        </button>
+                                        <button class="action-button" title="Edit">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                <path d="M4 20h4l11-11-4-4L4 16v4z"></path>
+                                                <path d="M13.5 6.5l4 4"></path>
+                                            </svg>
+                                        </button>
+                                        <button class="action-button delete" title="Delete">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                <path d="M3 6h18"></path>
+                                                <path d="M8 6V4h8v2"></path>
+                                                <path d="M6 6l1 15h10l1-15"></path>
+                                                <path d="M10 11v6M14 11v6"></path>
+                                            </svg>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -262,6 +287,32 @@
             sizeFilter.value = 'All';
             statusFilter.value = 'All';
             filterCompanies();
+        });
+
+        document.querySelectorAll('.action-button').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const row = button.closest('tr');
+                const name = row.querySelector('.company-cell').innerText.trim();
+
+                if (button.title === 'View') {
+                    alert('Company Details: ' + name);
+                }
+
+                if (button.title === 'Edit') {
+                    const newName = prompt('Edit company name', name);
+                    if (newName) {
+                        row.querySelector('.company-cell').lastChild.textContent = ' ' + newName;
+                        row.dataset.name = newName.toLowerCase();
+                    }
+                }
+
+                if (button.title === 'Delete') {
+                    if (confirm('Delete this company?')) {
+                        row.remove();
+                        filterCompanies();
+                    }
+                }
+            });
         });
     </script>
 </body>
