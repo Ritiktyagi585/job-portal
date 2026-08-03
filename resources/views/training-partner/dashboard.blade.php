@@ -1,19 +1,10 @@
+@extends('training-partner.layouts.app')
+
+@section('title', 'Training Partner Dashboard')
+
 @php
     $activePage = 'dashboard';
-    $partner = ['name' => 'CodeAcademy', 'role' => 'Training Partner', 'notifications' => 3];
-    $menuItems = [
-        ['key' => 'dashboard', 'title' => 'Dashboard', 'icon' => 'DB', 'url' => '/training-partner/dashboard'],
-        ['key' => 'profile', 'title' => 'My Profile', 'icon' => 'MP', 'url' => '/training-partner/profile'],
-        ['key' => 'add-course', 'title' => 'Add Course', 'icon' => 'AC', 'url' => '/training-partner/add-course'],
-        ['key' => 'courses', 'title' => 'Courses', 'icon' => 'CR', 'url' => '/training-partner/courses'],
-        ['key' => 'enrollments', 'title' => 'Enrollments', 'icon' => 'EN', 'url' => '/training-partner/enrollments'],
-        ['key' => 'progress', 'title' => 'Training Progress', 'icon' => 'TP', 'url' => '/training-partner/training-progress'],
-        ['key' => 'assessments', 'title' => 'Assessments', 'icon' => 'AS', 'url' => '/training-partner/assessments'],
-        ['key' => 'certificates', 'title' => 'Certificates', 'icon' => 'CT', 'url' => '/training-partner/certificates'],
-        ['key' => 'reports', 'title' => 'Reports', 'icon' => 'RP', 'url' => '#'],
-        ['key' => 'payouts', 'title' => 'Payouts', 'icon' => 'PO', 'url' => '#'],
-        ['key' => 'notifications', 'title' => 'Notifications', 'icon' => 'NT', 'url' => '#', 'dot' => true],
-    ];
+    $partnerName = 'CodeAcademy';
     $stats = [
         ['label' => 'Total Courses', 'value' => '12', 'hint' => 'Active', 'icon' => 'TC'],
         ['label' => 'Total Enrollments', 'value' => '1,250', 'hint' => 'All Courses', 'icon' => 'TE'],
@@ -46,14 +37,10 @@
         ['title' => 'Check Reports', 'text' => 'View detailed reports and analytics', 'icon' => 'RP', 'url' => '#'],
     ];
 @endphp
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Training Partner Dashboard</title>
-    <style>
-        *{box-sizing:border-box}
+
+@push('styles')
+<style>
+*{box-sizing:border-box}
         body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#0a1748;background:#f8faff;font-weight:500}
         a{text-decoration:none;color:inherit}
         .layout{min-height:100vh;display:grid;grid-template-columns:270px 1fr}
@@ -92,44 +79,13 @@
         .quick{padding:22px;margin-top:18px}.quick-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}.quick h2{margin:0;font-size:17px}.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.action{border:1px solid #dddff0;border-radius:9px;padding:18px;display:grid;grid-template-columns:56px 1fr 22px;gap:12px;align-items:center;background:#fff}.action:first-child .icon{background:#7b45ee;color:#fff;font-size:28px}.action h3{margin:0 0 6px;font-size:14px}.action p{margin:0;color:#526287;font-size:12px;line-height:1.5}.arrow{color:#5b2ce1;font-size:22px;font-weight:900}
         @media(max-width:1180px){.layout{grid-template-columns:1fr}.sidebar{display:none}.stats-grid,.actions{grid-template-columns:repeat(2,1fr)}.middle{grid-template-columns:1fr}}
         @media(max-width:720px){.topbar{height:76px;padding:0 14px}.content{padding:22px 14px}.stats-grid,.actions,.perf-grid{grid-template-columns:1fr}.stat-card{min-height:110px}.activity{grid-template-columns:48px 1fr}.activity time{grid-column:2}.perf{border-right:0;border-bottom:1px solid #dddff0}.perf:last-child{border-bottom:0}}
-    </style>
-</head>
-<body>
-    <div class="layout">
-        <aside class="sidebar">
-            <a class="brand" href="/training-partner/dashboard"><img src="{{ asset('ofclogo1.png') }}" alt="OnlyFreshers"></a>
-            <nav class="menu">
-                @foreach($menuItems as $item)
-                    <a class="menu-item {{ $activePage === $item['key'] ? 'active' : '' }}" href="{{ $item['url'] }}">
-                        <span class="menu-icon">{{ $item['icon'] }}</span>
-                        <span>{{ $item['title'] }}</span>
-                        @if(!empty($item['dot']))<span class="menu-dot"></span>@endif
-                    </a>
-                @endforeach
-            </nav>
-            <div class="side-bottom">
-                <a class="bottom-link" href="#"><span class="menu-icon">ST</span><span>Settings</span></a>
-                <a class="bottom-link" href="/training-partner/login"><span class="menu-icon">LO</span><span>Logout</span></a>
-            </div>
-        </aside>
-        <!-- End Sidebar Section -->
+</style>
+@endpush
 
-        <main>
-            <header class="topbar">
-                <div class="user">
-                    <button class="bell">♢<span>{{ $partner['notifications'] }}</span></button>
-                    <div class="avatar">CA</div>
-                    <div><h3>{{ $partner['name'] }}</h3><p>{{ $partner['role'] }}</p></div>
-                    <button class="chev" id="userMenuBtn">⌄</button>
-                    <div class="user-menu" id="userMenu"><a href="#">My Profile</a><a href="/training-partner/login">Logout</a></div>
-                </div>
-            </header>
-            <!-- End Topbar Section -->
-
-            <section class="content">
-                <div class="head">
+@section('content')
+<div class="head">
                     <h1>Training Partner Dashboard</h1>
-                    <p>Welcome back, <strong>{{ $partner['name'] }}!</strong></p>
+                    <p>Welcome back, <strong>{{ $partnerName }}!</strong></p>
                 </div>
                 <!-- End Header Section -->
 
@@ -156,13 +112,11 @@
                     <div class="actions" id="actions"></div>
                 </article>
                 <!-- End Quick Actions Section -->
-            </section>
-            <!-- End Content Section -->
-        </main>
-    </div>
+@endsection
 
-    <script>
-        const stats = @json($stats);
+@push('scripts')
+<script>
+const stats = @json($stats);
         const activities = @json($activities);
         const chartData = @json($chart);
         const performance = @json($performance);
@@ -222,12 +176,8 @@
         });
 
         renderChart(chartData);
-    </script>
-</body>
-</html>
-
-
-
+</script>
+@endpush
 
 
 

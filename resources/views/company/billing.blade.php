@@ -1,3 +1,9 @@
+@extends('company.layouts.app')
+
+@section('title', 'Packages & Billing - OnlyFreshers')
+@section('pageTitle', 'Packages & Billing')
+@section('pageSubtitle', 'Manage your subscription and billing details.')
+
 @php
     $activePage = 'billing';
 
@@ -32,14 +38,9 @@
     ];
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Packages & Billing - OnlyFreshers</title>
-    <style>
-        body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
+@push('styles')
+<style>
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .layout { min-height: 100vh; display: grid; grid-template-columns: 250px 1fr; }
         .company-sidebar { background: white; border-right: 1px solid #dce7f8; display: flex; flex-direction: column; justify-content: space-between; padding: 0 18px 28px; box-sizing: border-box; }
@@ -115,35 +116,11 @@
         .help-card p { margin: 0; color: #24344f; font-size: 12px; }
         @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .company-menu { grid-template-columns: repeat(2, 1fr); } .grid { grid-template-columns: 1fr; } .help-card { grid-column: auto; } }
         @media (max-width: 650px) { .main { padding: 0 14px 24px; } .topbar, .history-footer, .help-card, .payment-row { grid-template-columns: 1fr; flex-direction: column; align-items: flex-start; } .company-menu, .validity { grid-template-columns: 1fr; } .table-wrap { overflow-x: auto; } table { min-width: 680px; } }
-    </style>
-</head>
-<body>
-    <div class="layout">
-        @include('company.partials.sidebar')
+</style>
+@endpush
 
-        <main class="main">
-            <header class="topbar">
-                <div class="page-title">
-                    <h1>Packages & Billing</h1>
-                    <p>Manage your subscription and billing details.</p>
-                </div>
-                <div class="top-actions">
-                    <button class="bell" type="button">
-                        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
-                        <span>3</span>
-                    </button>
-                    <div class="top-user">
-                        <div class="top-avatar">T</div>
-                        <div>
-                            <h3>TechNova Solutions</h3>
-                            <p>Company</p>
-                        </div>
-                        <button type="button">⌄</button>
-                    </div>
-                </div>
-            </header>
-
-            <section class="grid">
+@section('content')
+<section class="grid">
                 <div class="stack">
                     <div class="card">
                         <h2>Current Plan</h2>
@@ -246,15 +223,15 @@
                     <button class="support-button" type="button">Contact Support</button>
                 </div>
             </section>
-        </main>
-    </div>
+@endsection
 
-    <script>
-        document.querySelectorAll('.download').forEach(function (button) {
+@push('scripts')
+<script>
+document.querySelectorAll('.download').forEach(function (button) {
             button.addEventListener('click', function () {
                 alert('Invoice download started.');
             });
         });
-    </script>
-</body>
-</html>
+</script>
+@endpush
+

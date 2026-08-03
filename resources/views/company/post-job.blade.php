@@ -1,3 +1,9 @@
+@extends('company.layouts.app')
+
+@section('title', 'Post a Job - OnlyFreshers')
+@section('pageTitle', 'Post a Job')
+@section('pageSubtitle', 'Fill in the details to post a new job.')
+
 @php
     $activePage = 'post-job';
 
@@ -6,15 +12,9 @@
     $skills = [];
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post a Job - OnlyFreshers</title>
-
-    <style>
-        body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
+@push('styles')
+<style>
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .layout { min-height: 100vh; display: grid; grid-template-columns: 250px 1fr; }
         .company-sidebar { background: white; border-right: 1px solid #dce7f8; display: flex; flex-direction: column; justify-content: space-between; padding: 0 18px 28px; box-sizing: border-box; }
@@ -64,35 +64,11 @@
         .publish-button { grid-column: 1 / -1; height: 52px; border: 0; border-radius: 7px; background: #075fe4; color: white; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 10px 20px rgba(7, 95, 228, 0.16); }
         @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .company-menu { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 650px) { .main { padding: 0 14px 24px; } .topbar { flex-direction: column; align-items: flex-start; } .company-menu, .form-grid { grid-template-columns: 1fr; } .field.full, .publish-button { grid-column: auto; } .job-card { padding: 22px 16px; } }
-    </style>
-</head>
-<body>
-    <div class="layout">
-        @include('company.partials.sidebar')
+</style>
+@endpush
 
-        <main class="main">
-            <header class="topbar">
-                <div class="page-title">
-                    <h1>Post a Job</h1>
-                    <p>Fill in the details to post a new job.</p>
-                </div>
-                <div class="top-actions">
-                    <button class="bell" type="button">
-                        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
-                        <span>3</span>
-                    </button>
-                    <div class="top-user">
-                        <div class="top-avatar">T</div>
-                        <div>
-                            <h3>TechNova Solutions</h3>
-                            <p>Company</p>
-                        </div>
-                        <button type="button">⌄</button>
-                    </div>
-                </div>
-            </header>
-
-            <section class="job-card">
+@section('content')
+<section class="job-card">
                 <div class="card-top">
                     <button class="draft-button" type="button" id="saveDraft">Save Draft</button>
                 </div>
@@ -154,11 +130,11 @@
                     <button class="publish-button" type="submit">Publish Job</button>
                 </form>
             </section>
-        </main>
-    </div>
+@endsection
 
-    <script>
-        document.querySelectorAll('.skill-tag button').forEach(function (button) {
+@push('scripts')
+<script>
+document.querySelectorAll('.skill-tag button').forEach(function (button) {
             button.addEventListener('click', function () {
                 button.closest('.skill-tag').remove();
             });
@@ -215,6 +191,6 @@
             event.preventDefault();
             saveCompanyJob('Active');
         });
-    </script>
-</body>
-</html>
+</script>
+@endpush
+

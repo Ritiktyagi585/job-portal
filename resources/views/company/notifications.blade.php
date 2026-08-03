@@ -1,3 +1,9 @@
+@extends('company.layouts.app')
+
+@section('title', 'Notifications - OnlyFreshers')
+@section('pageTitle', 'Notifications')
+@section('pageSubtitle', 'Stay updated with the latest activities and alerts.')
+
 @php
     $activePage = 'notifications';
     $notifications = [
@@ -16,14 +22,9 @@
     $system = collect($notifications)->where('type', 'system')->count();
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notifications - OnlyFreshers</title>
-    <style>
-        body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
+@push('styles')
+<style>
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .layout { min-height: 100vh; display: grid; grid-template-columns: 250px 1fr; }
         .company-sidebar { background: white; border-right: 1px solid #dce7f8; display: flex; flex-direction: column; justify-content: space-between; padding: 0 18px 28px; box-sizing: border-box; }
@@ -72,29 +73,11 @@
         .page-btn.active { background: #075fe4; color: white; border-color: #075fe4; }
         @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .company-menu { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 760px) { .main { padding: 0 14px 24px; } .topbar, .footer { flex-direction: column; align-items: flex-start; } .tabs { flex-wrap: wrap; } .mark-read { margin-left: 0; } .notification { grid-template-columns: 12px 44px 1fr; } .time, .menu-btn { display: none; } .company-menu { grid-template-columns: 1fr; } }
-    </style>
-</head>
-<body>
-    <div class="layout">
-        @include('company.partials.sidebar')
-        <main class="main">
-            <header class="topbar">
-                <div class="page-title">
-                    <h1>Notifications</h1>
-                    <p>Stay updated with the latest activities and alerts.</p>
-                </div>
-                <div class="top-actions">
-                    <select class="period">
-                        <option>This Month</option>
-                        <option>Last Month</option>
-                        <option>Last Six Months</option>
-                        <option>Last Year</option>
-                    </select>
-                    <div class="top-avatar">T</div>
-                </div>
-            </header>
+</style>
+@endpush
 
-            <section class="card">
+@section('content')
+<section class="card">
                 <div class="tabs">
                     <button class="tab active" type="button" data-filter="all">All ({{ count($notifications) }})</button>
                     <button class="tab" type="button" data-filter="unread">Unread ({{ $unread }})</button>
@@ -131,11 +114,11 @@
                     </div>
                 </div>
             </section>
-        </main>
-    </div>
+@endsection
 
-    <script>
-        const tabs = document.querySelectorAll('.tab');
+@push('scripts')
+<script>
+const tabs = document.querySelectorAll('.tab');
         const notices = document.querySelectorAll('.notification');
         const showingText = document.getElementById('showingText');
 
@@ -165,6 +148,6 @@
             alert('All notifications marked as read.');
             applyFilter(document.querySelector('.tab.active').dataset.filter);
         });
-    </script>
-</body>
-</html>
+</script>
+@endpush
+

@@ -1,3 +1,12 @@
+@extends('admin.layouts.app')
+
+@section('title', 'Settings - OnlyFreshers Admin')
+@section('pageTitle', 'Settings')
+@section('breadcrumb', 'Dashboard > Settings')
+@section('topbarExtra')
+    <button class="save-button" type="button">Save Changes</button>
+@endsection
+
 @php
     $activePage = 'settings';
 
@@ -33,15 +42,9 @@
     ];
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings - OnlyFreshers Admin</title>
-
-    <style>
-        body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
+@push('styles')
+<style>
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .admin-layout { min-height: 100vh; display: grid; grid-template-columns: 220px 1fr; }
         .sidebar { background: white; border-right: 1px solid #dce7f8; display: flex; flex-direction: column; justify-content: space-between; padding: 14px 12px 22px; box-sizing: border-box; }
@@ -92,29 +95,11 @@
         @media (max-width: 1000px) { .settings-card { grid-template-columns: 1fr; } .settings-tabs { border-right: 0; border-bottom: 1px solid #dce7f8; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; } }
         @media (max-width: 900px) { .admin-layout { grid-template-columns: 1fr; } .menu { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 600px) { .main { padding: 24px 16px; } .page-top { flex-direction: column; } .form-grid, .settings-tabs, .menu { grid-template-columns: 1fr; } }
-    </style>
-</head>
-<body>
-    <div class="admin-layout">
-        @include('admin.partials.sidebar')
+</style>
+@endpush
 
-        <main class="main">
-            <div class="page-top">
-                <div class="page-title">
-                    <h1>Settings</h1>
-                    <div class="breadcrumb">Dashboard &nbsp;&gt;&nbsp; Settings</div>
-                </div>
-                <button class="save-button" type="button">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><path d="M17 21v-8H7v8M7 3v5h8"></path></svg>
-                    Save Changes
-                </button>
-                <div class="user-button">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <circle cx="12" cy="8" r="4"></circle>
-                        <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
-                    </svg>
-                </div>
-            </div>
+@section('content')
+
 
             <section class="settings-card">
                 <aside class="settings-tabs">
@@ -186,7 +171,6 @@
                     </div>
                 </div>
             </section>
-        </main>
-    </div>
-</body>
-</html>
+@endsection
+
+

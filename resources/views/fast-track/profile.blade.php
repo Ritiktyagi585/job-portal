@@ -1,3 +1,7 @@
+@extends('fast-track.layouts.app')
+
+@section('title', 'My Profile - Fast Track')
+
 @php
     $activePage = 'profile';
     $menuItems = [
@@ -36,14 +40,9 @@
     ];
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile - Fast Track</title>
-    <style>
-        * { box-sizing: border-box; }
+@push('styles')
+<style>
+* { box-sizing: border-box; }
         body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f6f9ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .layout { min-height: 100vh; display: grid; grid-template-columns: 260px 1fr; }
@@ -114,48 +113,12 @@
         .summary-row strong { font-size: 14px; }
         @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .sidebar { display: none; } .grid, .right-grid, .bottom-grid { grid-template-columns: 1fr; } }
         @media (max-width: 640px) { .content { padding: 24px 14px; } .topbar { padding: 0 14px; } .page-head { flex-direction: column; } .info-row { grid-template-columns: 1fr; gap: 4px; } }
-    </style>
-</head>
-<body>
-    <div class="layout">
-        <aside class="sidebar">
-            <a href="/fast-track/login" class="brand"><img src="{{ asset('ofclogo1.png') }}" alt="OnlyFreshers"></a>
-            <nav class="menu">
-                @foreach ($menuItems as $item)
-                    <a class="menu-item {{ $activePage === $item['key'] ? 'active' : '' }}" href="{{ $item['url'] }}">
-                        <span class="menu-icon">{{ $item['icon'] }}</span>
-                        <span>{{ $item['title'] }}</span>
-                    </a>
-                @endforeach
-            </nav>
-            <div class="side-bottom">
-                <a class="bottom-link" href="#"><span class="menu-icon">ST</span><span>Settings</span></a>
-                <a class="bottom-link" href="/fast-track/login"><span class="menu-icon">LO</span><span>Logout</span></a>
-            </div>
-        </aside>
+</style>
+@endpush
 
-        <main class="main">
-            <header class="topbar">
-                <button class="hamburger" type="button">=</button>
-                <div class="user">
-                    <button class="bell" type="button" aria-label="Notifications">
-                        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
-                        <span>3</span>
-                    </button>
-                    <div class="top-avatar"></div>
-                    <h3>{{ $student['name'] }}</h3>
-                    <button type="button" id="userMenuBtn" aria-label="Open account menu">
-                        <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
-                    </button>
-                    <div class="user-menu" id="userMenu">
-                        <a href="/fast-track/dashboard">Dashboard</a>
-                        <a href="/fast-track/login">Logout</a>
-                    </div>
-                </div>
-            </header>
-
-            <section class="content">
-                <div class="page-head">
+@section('content')
+<section class="content">
+<div class="page-head">
                     <div>
                         <h1>My Profile</h1>
                         <p>View and manage your personal information</p>
@@ -233,30 +196,16 @@
                         </div>
                     </div>
                 </div>
-            </section>
-        </main>
-    </div>
-    <script>
-        const userMenuBtn = document.getElementById('userMenuBtn');
-        const userMenu = document.getElementById('userMenu');
-        userMenuBtn.addEventListener('click', function () {
-            userMenu.classList.toggle('show');
-        });
-        document.addEventListener('click', function (event) {
-            if (!userMenu.contains(event.target) && !userMenuBtn.contains(event.target)) {
-                userMenu.classList.remove('show');
-            }
-        });
+</section>
+@endsection
+
+@push('scripts')
+<script>
         document.querySelector('.edit-btn').addEventListener('click', function () {
             alert('Edit profile form will open here.');
         });
         document.querySelector('.download').addEventListener('click', function () {
             alert('Resume download started.');
         });
-    </script>
-</body>
-</html>
-
-
-
-
+</script>
+@endpush

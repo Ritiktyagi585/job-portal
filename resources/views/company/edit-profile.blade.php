@@ -1,3 +1,9 @@
+@extends('company.layouts.app')
+
+@section('title', 'Edit Profile - OnlyFreshers')
+@section('pageTitle', 'Edit Profile')
+@section('pageSubtitle', 'Update your company profile information.')
+
 @php
     $activePage = 'profile';
 
@@ -20,15 +26,9 @@
     $companyTypes = ['Private', 'Public', 'Startup', 'Partnership'];
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile - OnlyFreshers</title>
-
-    <style>
-        body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
+@push('styles')
+<style>
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .layout { min-height: 100vh; display: grid; grid-template-columns: 250px 1fr; }
         .company-sidebar { background: white; border-right: 1px solid #dce7f8; display: flex; flex-direction: column; justify-content: space-between; padding: 0 18px 28px; box-sizing: border-box; }
@@ -81,35 +81,11 @@
         .save-button { width: 190px; border: 0; background: #075fe4; color: white; box-shadow: 0 10px 20px rgba(7, 95, 228, 0.16); }
         @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .company-menu { grid-template-columns: repeat(2, 1fr); } .form-grid { grid-template-columns: 1fr; } .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; } }
         @media (max-width: 650px) { .main { padding: 0 14px 24px; } .topbar { flex-direction: column; align-items: flex-start; } .company-menu, .fields, .location-grid { grid-template-columns: 1fr; } .edit-card { padding: 22px 16px; } .actions { flex-direction: column; } .cancel-button, .save-button { width: 100%; } }
-    </style>
-</head>
-<body>
-    <div class="layout">
-        @include('company.partials.sidebar')
+</style>
+@endpush
 
-        <main class="main">
-            <header class="topbar">
-                <div class="page-title">
-                    <h1>Edit Profile</h1>
-                    <p>Update your company profile information.</p>
-                </div>
-                <div class="top-actions">
-                    <button class="bell" type="button">
-                        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
-                        <span>3</span>
-                    </button>
-                    <div class="top-user">
-                        <div class="top-avatar">T</div>
-                        <div>
-                            <h3>TechNova Solutions</h3>
-                            <p>Company</p>
-                        </div>
-                        <button type="button">⌄</button>
-                    </div>
-                </div>
-            </header>
-
-            <section class="edit-card">
+@section('content')
+<section class="edit-card">
                 <h2>Company Profile</h2>
 
                 <form class="form-grid" id="editCompanyForm">
@@ -189,11 +165,11 @@
                     </div>
                 </form>
             </section>
-        </main>
-    </div>
+@endsection
 
-    <script>
-        const about = document.getElementById('about');
+@push('scripts')
+<script>
+const about = document.getElementById('about');
         const aboutCounter = document.getElementById('aboutCounter');
 
         function updateCounter() {
@@ -207,6 +183,6 @@
             event.preventDefault();
             alert('Company profile saved.');
         });
-    </script>
-</body>
-</html>
+</script>
+@endpush
+

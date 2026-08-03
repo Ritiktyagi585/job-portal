@@ -1,3 +1,12 @@
+@extends('admin.layouts.app')
+
+@section('title', 'Companies - OnlyFreshers Admin')
+@section('pageTitle', 'Companies')
+@section('breadcrumb', 'Dashboard > Companies')
+@section('topbarExtra')
+    <button class="add-button">+ Add Company</button>
+@endsection
+
 @php
     $activePage = 'companies';
 
@@ -27,15 +36,9 @@
     $totalPages = ceil($totalCompanies / $perPage);
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Companies - OnlyFreshers Admin</title>
-
-    <style>
-        body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
+@push('styles')
+<style>
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .admin-layout { min-height: 100vh; display: grid; grid-template-columns: 220px 1fr; }
         .sidebar { background: white; border-right: 1px solid #dce7f8; display: flex; flex-direction: column; justify-content: space-between; padding: 14px 12px 22px; box-sizing: border-box; }
@@ -95,28 +98,11 @@
         @media (max-width: 1100px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .filter-box { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 900px) { .admin-layout { grid-template-columns: 1fr; } .menu { grid-template-columns: repeat(2, 1fr); } table { min-width: 900px; } .table-box { overflow-x: auto; } }
         @media (max-width: 600px) { .main { padding: 24px 16px; } .page-top { flex-direction: column; align-items: flex-start; gap: 16px; } .stats-grid, .filter-box, .menu { grid-template-columns: 1fr; } }
-    </style>
-</head>
-<body>
-    <div class="admin-layout">
-        @include('admin.partials.sidebar')
+</style>
+@endpush
 
-        <main class="main">
-            <div class="page-top">
-                <div class="page-title">
-                    <h1>Companies</h1>
-                    <div class="breadcrumb">Dashboard &nbsp;›&nbsp; Companies</div>
-                </div>
-                <div class="top-actions">
-                    <button class="add-button">+ Add Company</button>
-                    <div class="user-button">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <circle cx="12" cy="8" r="4"></circle>
-                            <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
+@section('content')
+
 
             <section class="stats-grid">
                 @foreach ($stats as $stat)
@@ -240,11 +226,11 @@
                     </div>
                 </div>
             </section>
-        </main>
-    </div>
+@endsection
 
-    <script>
-        const searchInput = document.getElementById('companySearch');
+@push('scripts')
+<script>
+const searchInput = document.getElementById('companySearch');
         const industryFilter = document.getElementById('industryFilter');
         const sizeFilter = document.getElementById('sizeFilter');
         const statusFilter = document.getElementById('statusFilter');
@@ -314,6 +300,7 @@
                 }
             });
         });
-    </script>
-</body>
-</html>
+</script>
+@endpush
+
+

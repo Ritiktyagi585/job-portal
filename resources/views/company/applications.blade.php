@@ -1,3 +1,9 @@
+@extends('company.layouts.app')
+
+@section('title', 'Applications - OnlyFreshers')
+@section('pageTitle', 'Applications')
+@section('pageSubtitle', 'Review all applications received for your posted jobs.')
+
 @php
     $activePage = 'applications';
 
@@ -14,14 +20,9 @@
     $statuses = ['All Status', 'New', 'Under Review', 'Shortlisted', 'Rejected'];
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Applications - OnlyFreshers</title>
-    <style>
-        body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
+@push('styles')
+<style>
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .layout { min-height: 100vh; display: grid; grid-template-columns: 250px 1fr; }
         .company-sidebar { background: white; border-right: 1px solid #dce7f8; display: flex; flex-direction: column; justify-content: space-between; padding: 0 18px 28px; box-sizing: border-box; }
@@ -75,35 +76,11 @@
         .page-btn.active { background: #075fe4; color: white; }
         @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .company-menu { grid-template-columns: repeat(2, 1fr); } .filters { grid-template-columns: 1fr 1fr; } .table-wrap { overflow-x: auto; } table { min-width: 900px; } }
         @media (max-width: 650px) { .main { padding: 0 14px 24px; } .topbar, .footer-row { flex-direction: column; align-items: flex-start; } .company-menu, .filters { grid-template-columns: 1fr; } }
-    </style>
-</head>
-<body>
-    <div class="layout">
-        @include('company.partials.sidebar')
+</style>
+@endpush
 
-        <main class="main">
-            <header class="topbar">
-                <div class="page-title">
-                    <h1>Applications</h1>
-                    <p>Review all applications received for your posted jobs.</p>
-                </div>
-                <div class="top-actions">
-                    <button class="bell" type="button">
-                        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
-                        <span>3</span>
-                    </button>
-                    <div class="top-user">
-                        <div class="top-avatar">T</div>
-                        <div>
-                            <h3>TechNova Solutions</h3>
-                            <p>Company</p>
-                        </div>
-                        <button type="button">⌄</button>
-                    </div>
-                </div>
-            </header>
-
-            <section class="card">
+@section('content')
+<section class="card">
                 <div class="filters">
                     <select id="jobFilter">
                         @foreach ($jobs as $job)
@@ -172,11 +149,11 @@
                     </div>
                 </div>
             </section>
-        </main>
-    </div>
+@endsection
 
-    <script>
-        const jobFilter = document.getElementById('jobFilter');
+@push('scripts')
+<script>
+const jobFilter = document.getElementById('jobFilter');
         const statusFilter = document.getElementById('statusFilter');
         const searchInput = document.getElementById('searchInput');
         const rows = document.querySelectorAll('.application-row');
@@ -203,6 +180,6 @@
         jobFilter.addEventListener('change', filterApplications);
         statusFilter.addEventListener('change', filterApplications);
         searchInput.addEventListener('input', filterApplications);
-    </script>
-</body>
-</html>
+</script>
+@endpush
+

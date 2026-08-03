@@ -1,3 +1,9 @@
+@extends('company.layouts.app')
+
+@section('title', 'Messages - OnlyFreshers')
+@section('pageTitle', 'Messages')
+@section('pageSubtitle', 'Communicate with candidates and manage conversations.')
+
 @php
     $activePage = 'messages';
 
@@ -29,14 +35,9 @@
     $unreadCount = collect($conversations)->where('unread', '>', 0)->count();
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messages - OnlyFreshers</title>
-    <style>
-        body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
+@push('styles')
+<style>
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .layout { min-height: 100vh; display: grid; grid-template-columns: 250px 1fr; }
         .company-sidebar { background: white; border-right: 1px solid #dce7f8; display: flex; flex-direction: column; justify-content: space-between; padding: 0 18px 28px; box-sizing: border-box; }
@@ -104,32 +105,11 @@
         .send-btn { height: 46px; border: 0; border-radius: 7px; background: #075fe4; color: white; font-size: 13px; font-weight: 700; cursor: pointer; }
         @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .company-menu { grid-template-columns: repeat(2, 1fr); } .message-card { grid-template-columns: 1fr; } .inbox { border-right: 0; border-bottom: 1px solid #dce7f8; } }
         @media (max-width: 650px) { .main { padding: 0 14px 24px; } .topbar { flex-direction: column; align-items: flex-start; } .company-menu { grid-template-columns: 1fr; } .composer { grid-template-columns: 1fr; } .bubble { max-width: 100%; } }
-    </style>
-</head>
-<body>
-    <div class="layout">
-        @include('company.partials.sidebar')
+</style>
+@endpush
 
-        <main class="main">
-            <header class="topbar">
-                <div class="page-title">
-                    <h1>Messages</h1>
-                    <p>Communicate with candidates and manage conversations.</p>
-                </div>
-                <div class="top-actions">
-                    <button class="bell" type="button">
-                        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
-                        <span>3</span>
-                    </button>
-                    <div class="top-user">
-                        <div class="top-avatar">T</div>
-                        <div><h3>TechNova Solutions</h3><p>Company</p></div>
-                        <button type="button">⌄</button>
-                    </div>
-                </div>
-            </header>
-
-            <section class="message-card">
+@section('content')
+<section class="message-card">
                 <aside class="inbox">
                     <div class="inbox-top">
                         <div class="search-row">
@@ -196,11 +176,11 @@
                     </div>
                 </div>
             </section>
-        </main>
-    </div>
+@endsection
 
-    <script>
-        const conversations = @json($conversations);
+@push('scripts')
+<script>
+const conversations = @json($conversations);
         const rows = document.querySelectorAll('.conversation');
         const chatName = document.getElementById('chatName');
         const chatRole = document.getElementById('chatRole');
@@ -283,6 +263,6 @@
         });
 
         renderMessages(0);
-    </script>
-</body>
-</html>
+</script>
+@endpush
+

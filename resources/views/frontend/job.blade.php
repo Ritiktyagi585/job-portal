@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jobs - OnlyFreshers</title>
-    <link rel="preconnect" href="https://fonts.bunny.net">
+@extends('frontend.layouts.app')
 
-    <style>
-        body {
+@section('title', 'Jobs - OnlyFreshers')
+
+@php
+    $activePage = 'jobs';
+@endphp
+
+@push('styles')
+<style>
+body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
             color: #061942;
@@ -775,48 +776,11 @@
         .nav-buttons .button {
             font-weight: 600 !important;
         }
-    </style>
-</head>
-<body>
-    <header class="navbar">
-        <div class="container nav-content">
-            <a href="/" class="logo">
-                <img src="{{ asset('ofclogo1.png') }}" alt="OnlyFreshers Logo" class="logo-image">
-            </a>
+</style>
+@endpush
 
-            <button class="side-menu-button" type="button" onclick="toggleMobileMenu()">☰</button>
-
-            <nav class="menu">
-                <a href="/">Home</a>
-                <a href="/job" class="active">Jobs</a>
-                <a href="/fast-track">Fast Track Program</a>
-                <a href="/training-partners">Training Partners</a>
-                <a href="/about">About Us</a>
-            </nav>
-
-            <div class="nav-buttons">
-                <a href="#" class="button outline-button">Login</a>
-                <a href="#" class="button blue-button">Register</a>
-            </div>
-        </div>
-    </header>
-
-    <div id="mobileSidebar" class="mobile-sidebar">
-        <button class="close-menu-button" type="button" onclick="toggleMobileMenu()">×</button>
-        <nav class="side-links">
-            <a href="/">Home</a>
-            <a href="/job" class="active">Jobs</a>
-            <a href="/fast-track">Fast Track Program</a>
-            <a href="/training-partners">Training Partners</a>
-            <a href="/about">About Us</a>
-        </nav>
-        <div class="side-buttons">
-            <a href="#" class="button outline-button">Login</a>
-            <a href="#" class="button blue-button">Register</a>
-        </div>
-    </div>
-
-    <main class="main-section">
+@section('content')
+<main class="main-section">
         <div class="container">
             <div id="listingView" class="listing-view">
                 <h1 class="page-title">Find Your Dream Job</h1>
@@ -1069,70 +1033,11 @@
             </div>
         </div>
     </main>
+@endsection
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <a href="/" class="logo">
-                        <img src="{{ asset('ofclogo1.png') }}" alt="OnlyFreshers Logo" class="logo-image">
-                    </a>
-                    <p>Connecting fresh talent with the right opportunities through jobs and training.</p>
-                </div>
-
-                <div class="footer-col">
-                    <h3>Quick Links</h3>
-                    <p>
-                        <a href="/">Home</a><br>
-                        <a href="/job">Jobs</a><br>
-                        <a href="/fast-track">Fast Track Program</a><br>
-                        <a href="/training-partners">Training Partners</a><br>
-                        <a href="/about">About Us</a>
-                    </p>
-                </div>
-
-                <div class="footer-col">
-                    <h3>For Freshers</h3>
-                    <p>
-                        <a href="/job">Browse Jobs</a><br>
-                        <a href="/fast-track">Fast Track Program</a><br>
-                        <a href="/training-partners">Training Partners</a><br>
-                        <a href="#">Create Profile</a>
-                    </p>
-                </div>
-
-                <div class="footer-col">
-                    <h3>For Companies</h3>
-                    <p>
-                        <a href="#">Post a Job</a><br>
-                        <a href="#">Find Fresh Talent</a><br>
-                        <a href="#">Why OnlyFreshers?</a><br>
-                        <a href="#">Partner With Us</a>
-                    </p>
-                </div>
-
-                <div class="footer-col">
-                    <h3>Support</h3>
-                    <p>
-                        support@onlyfreshers.com<br>
-                        +91 6361 6361 669<br>
-                        Mon - Sat: 9:00 AM - 6:00 PM
-                    </p>
-                </div>
-            </div>
-
-            <div class="copyright">
-                <span>© 2025 OnlyFreshers. All rights reserved.</span>
-                <div class="copyright-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms & Conditions</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        function toggleMobileMenu() {
+@push('scripts')
+<script>
+function toggleMobileMenu() {
             document.getElementById('mobileSidebar').classList.toggle('show');
         }
 
@@ -1147,6 +1052,7 @@
             document.getElementById("detailView").classList.remove("show");
             window.scrollTo(0, 0);
         }
-    </script>
-</body>
-</html>
+</script>
+@endpush
+
+

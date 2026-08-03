@@ -3,23 +3,23 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('index');
+    return view('frontend.index');
 });
 
 Route::get('/job', function () {
-    return view('job');
+    return view('frontend.job');
 });
 
 Route::get('/fast-track', function () {
-    return view('fast-track');
+    return view('frontend.fast-track');
 });
 
 Route::get('/training-partners', function () {
-    return view('training-partners');
+    return view('frontend.training-partners');
 });
 
 Route::get('/about', function () {
-    return view('about');
+    return view('frontend.about');
 });
 
 Route::get('/admin/login', function () {
@@ -164,6 +164,18 @@ Route::get('/training-partner/assessments', function () {
 
 Route::get('/training-partner/certificates', function () {
     return view('training-partner.certificates');
+});
+
+Route::get('/training-partner/reports', function () {
+    return view('training-partner.reports');
+});
+
+Route::get('/training-partner/payouts', function () {
+    return view('training-partner.payouts');
+});
+
+Route::get('/training-partner/notifications', function () {
+    return view('training-partner.notifications');
 });
 
 Route::get('/fast-track/login', function () {

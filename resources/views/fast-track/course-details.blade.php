@@ -1,3 +1,7 @@
+@extends('fast-track.layouts.app')
+
+@section('title', 'Course Details')
+
 @php
     $activePage = 'details';
     $student = ['name' => 'Ananya Gupta', 'notifications' => 3];
@@ -36,14 +40,10 @@
     ];
     $audience = ['Freshers', 'Engineering Students', 'Career Switchers', 'Working Professionals'];
 @endphp
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Details</title>
-    <style>
-        * { box-sizing: border-box; }
+
+@push('styles')
+<style>
+* { box-sizing: border-box; }
         body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f6f9ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .layout { min-height: 100vh; display: grid; grid-template-columns: 260px 1fr; }
@@ -107,22 +107,12 @@
         .audience-chip { min-width: 160px; height: 42px; border: 1px solid #dce7f8; border-radius: 7px; display: inline-flex; align-items: center; justify-content: center; color: #075fe4; font-size: 13px; font-weight: 700; }
         @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .sidebar { display: none; } .hero, .main-grid { grid-template-columns: 1fr; } .enroll { border-left: 0; padding-left: 0; } .meta { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 650px) { .content { padding: 20px 14px; } .topbar { padding: 0 14px; } .learn-grid { grid-template-columns: 1fr; } .tabs { overflow-x: auto; } }
-    </style>
-</head>
-<body>
-    <div class="layout">
-        <aside class="sidebar">
-            <a href="/fast-track/dashboard" class="brand"><img src="{{ asset('ofclogo1.png') }}" alt="OnlyFreshers"></a>
-            <nav class="menu">@foreach ($menuItems as $item)<a class="menu-item {{ $activePage === $item['key'] ? 'active' : '' }}" href="{{ $item['url'] }}"><span class="menu-icon">{{ $item['icon'] }}</span><span>{{ $item['title'] }}</span></a>@endforeach</nav>
-            <div class="side-bottom"><a class="bottom-link" href="#"><span class="menu-icon">ST</span><span>Settings</span></a><a class="bottom-link" href="/fast-track/login"><span class="menu-icon">LO</span><span>Logout</span></a></div>
-        </aside>
-        <main>
-            <header class="topbar">
-                <button class="hamburger" type="button">=</button>
-                <div class="user"><button class="bell" type="button"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg><span>{{ $student['notifications'] }}</span></button><div class="top-avatar"></div><h3>{{ $student['name'] }}</h3><button id="userMenuBtn" type="button"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></button><div class="user-menu" id="userMenu"><a href="/fast-track/profile">My Profile</a><a href="/fast-track/login">Logout</a></div></div>
-            </header>
-            <section class="content">
-                <a class="back" href="/fast-track/courses">&lt; Back to Courses</a>
+</style>
+@endpush
+
+@section('content')
+<section class="content">
+<a class="back" href="/fast-track/courses">&lt; Back to Courses</a>
                 <div class="page-head"><h1>Course Details</h1><p>Explore course details, curriculum, and other important information.</p></div>
                 <article class="card hero">
                     <div class="course-icon">FS</div>
@@ -137,13 +127,14 @@
                     <article class="card highlights"><h2>Course Highlights</h2>@foreach ($highlights as $item)<div class="highlight-row"><span class="detail-icon">{{ $item['icon'] }}</span><div><h3>{{ $item['title'] }}</h3><p>{{ $item['text'] }}</p></div></div>@endforeach</article>
                 </div>
                 <article class="card audience"><h2>Who Should Enroll?</h2><div class="audience-list">@foreach ($audience as $item)<span class="audience-chip">{{ $item }}</span>@endforeach</div></article>
-            </section>
-        </main>
-    </div>
-    <script>
-        const learnItems = @json($learn);
+</section>
+@endsection
+
+@push('scripts')
+<script>
+const learnItems = @json($learn);
         const tabData = {
-            about: '<h3>About this Course</h3><p>This Full Stack Development course is designed to make you job-ready by teaching front-end, back-end, databases, version control, and deployment. You will build real-world projects and gain industry-level skills.</p><h3>What You Will Learn</h3><div class="learn-grid">' + learnItems.map(function (item) { return '<div class="learn-item"><span>✓</span>' + item + '</div>'; }).join('') + '</div>',
+            about: '<h3>About this Course</h3><p>This Full Stack Development course is designed to make you job-ready by teaching front-end, back-end, databases, version control, and deployment. You will build real-world projects and gain industry-level skills.</p><h3>What You Will Learn</h3><div class="learn-grid">' + learnItems.map(function (item) { return '<div class="learn-item"><span>?</span>' + item + '</div>'; }).join('') + '</div>',
             curriculum: '<h3>Curriculum</h3><p>HTML basics, CSS layouts, JavaScript, React.js, Node.js, Express.js, MongoDB, APIs, authentication, deployment, and final project.</p>',
             mentors: '<h3>Mentors</h3><p>Learn from experienced full stack developers, project mentors, and interview preparation experts.</p>',
             reviews: '<h3>Reviews</h3><p>Students rate this course 4.8 for practical projects, mentor support, and placement preparation.</p>',
@@ -153,14 +144,5 @@
         function setTab(name) { tabContent.innerHTML = tabData[name]; }
         document.querySelectorAll('.tab').forEach(function (tab) { tab.addEventListener('click', function () { document.querySelectorAll('.tab').forEach(function (item) { item.classList.remove('active'); }); tab.classList.add('active'); setTab(tab.dataset.tab); }); });
         setTab('about');
-        const userMenuBtn = document.getElementById('userMenuBtn');
-        const userMenu = document.getElementById('userMenu');
-        userMenuBtn.addEventListener('click', function () { userMenu.classList.toggle('show'); });
-        document.addEventListener('click', function (event) { if (!userMenu.contains(event.target) && !userMenuBtn.contains(event.target)) userMenu.classList.remove('show'); });
-    </script>
-</body>
-</html>
-
-
-
-
+</script>
+@endpush

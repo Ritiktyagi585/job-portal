@@ -1,3 +1,9 @@
+@extends('company.layouts.app')
+
+@section('title', 'Interviews - OnlyFreshers')
+@section('pageTitle', 'Interviews')
+@section('pageSubtitle', 'Schedule and manage interviews with candidates.')
+
 @php
     $activePage = 'interviews';
 
@@ -14,14 +20,9 @@
     $interviewers = ['All Interviewers', 'Amit Sharma', 'Ritika Verma', 'Sandeep Joshi', 'Pooja Mehta', 'Vikram Singh'];
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interviews - OnlyFreshers</title>
-    <style>
-        body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
+@push('styles')
+<style>
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .layout { min-height: 100vh; display: grid; grid-template-columns: 250px 1fr; }
         .company-sidebar { background: white; border-right: 1px solid #dce7f8; display: flex; flex-direction: column; justify-content: space-between; padding: 0 18px 28px; box-sizing: border-box; }
@@ -85,35 +86,11 @@
         .page-btn.active { background: #075fe4; color: white; }
         @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .company-menu { grid-template-columns: repeat(2, 1fr); } .filters { grid-template-columns: 1fr 1fr; } .table-wrap { overflow-x: auto; } table { min-width: 980px; } }
         @media (max-width: 650px) { .main { padding: 0 14px 24px; } .topbar, .card-head, .footer-row { flex-direction: column; align-items: flex-start; } .company-menu, .filters { grid-template-columns: 1fr; } }
-    </style>
-</head>
-<body>
-    <div class="layout">
-        @include('company.partials.sidebar')
+</style>
+@endpush
 
-        <main class="main">
-            <header class="topbar">
-                <div class="page-title">
-                    <h1>Interviews</h1>
-                    <p>Schedule and manage interviews with candidates.</p>
-                </div>
-                <div class="top-actions">
-                    <button class="bell" type="button">
-                        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
-                        <span>3</span>
-                    </button>
-                    <div class="top-user">
-                        <div class="top-avatar">T</div>
-                        <div>
-                            <h3>TechNova Solutions</h3>
-                            <p>Company</p>
-                        </div>
-                        <button type="button">⌄</button>
-                    </div>
-                </div>
-            </header>
-
-            <section class="card">
+@section('content')
+<section class="card">
                 <div class="card-head">
                     <div class="tabs">
                         <button class="tab active" data-status="All" type="button">All Interviews (<span id="allCount">0</span>)</button>
@@ -194,11 +171,11 @@
                     </div>
                 </div>
             </section>
-        </main>
-    </div>
+@endsection
 
-    <script>
-        const rows = document.querySelectorAll('.interview-row');
+@push('scripts')
+<script>
+const rows = document.querySelectorAll('.interview-row');
         const searchInput = document.getElementById('searchInput');
         const jobFilter = document.getElementById('jobFilter');
         const interviewerFilter = document.getElementById('interviewerFilter');
@@ -248,6 +225,6 @@
         searchInput.addEventListener('input', filterRows);
         jobFilter.addEventListener('change', filterRows);
         interviewerFilter.addEventListener('change', filterRows);
-    </script>
-</body>
-</html>
+</script>
+@endpush
+

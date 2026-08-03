@@ -1,3 +1,14 @@
+@extends('admin.layouts.app')
+
+@section('title', 'Admin Dashboard - OnlyFreshers')
+@section('customTop')
+    <div class="dashboard-mobile-top">
+        <button class="admin-mobile-toggle" type="button" onclick="toggleAdminSidebar()" aria-label="Open menu">
+            <svg viewBox="0 0 24 24"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg>
+        </button>
+    </div>
+@endsection
+
 @php
     $stats = [
         ['title' => 'Total Freshers', 'value' => '12,560', 'change' => '12%', 'icon' => 'users'],
@@ -27,15 +38,13 @@
     $activePage = 'dashboard';
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - OnlyFreshers</title>
+@push('styles')
+<style>
+.dashboard-mobile-top {
+    display: none;
+}
 
-    <style>
-        body {
+body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
             color: #061942;
@@ -469,6 +478,11 @@
         }
 
         @media (max-width: 600px) {
+            .dashboard-mobile-top {
+                display: flex;
+                margin-bottom: 16px;
+            }
+
             .main {
                 padding: 24px 16px;
             }
@@ -483,14 +497,11 @@
                 grid-template-columns: 1fr;
             }
         }
-    </style>
-</head>
-<body>
-    <div class="admin-layout">
-        @include('admin.partials.sidebar')
+</style>
+@endpush
 
-        <main class="main">
-            <div class="top-bar">
+@section('content')
+<div class="top-bar">
                 <div class="welcome">
                     <h1>Welcome Back, Admin!</h1>
                     <p>Here's what's happening with your platform today.</p>
@@ -622,11 +633,11 @@
                     </div>
                 </div>
             </section>
-        </main>
-    </div>
+@endsection
 
-    <script>
-        const dashboardData = {
+@push('scripts')
+<script>
+const dashboardData = {
             "This Month": {
                 stats: ["12,560", "2,350", "320", "4,850", "18,750", "1,250"],
                 labels: ["1 May", "6 May", "11 May", "16 May", "21 May", "26 May", "31 May"],
@@ -785,6 +796,6 @@
 
         drawLineChart("fresherChart", fresherChartData);
         window.addEventListener("resize", () => drawLineChart("fresherChart", fresherChartData));
-    </script>
-</body>
-</html>
+</script>
+@endpush
+

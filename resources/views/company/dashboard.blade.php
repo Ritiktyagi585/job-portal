@@ -1,3 +1,9 @@
+@extends('company.layouts.app')
+
+@section('title', 'Company Dashboard - OnlyFreshers')
+@section('pageTitle', 'Company Dashboard')
+@section('pageSubtitle', 'Overview of your hiring activities and company updates.')
+
 @php
     $activePage = 'dashboard';
 
@@ -25,15 +31,9 @@
     ];
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Dashboard - OnlyFreshers</title>
-
-    <style>
-        body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
+@push('styles')
+<style>
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .layout { min-height: 100vh; display: grid; grid-template-columns: 250px 1fr; }
         .company-sidebar { background: white; border-right: 1px solid #dce7f8; display: flex; flex-direction: column; justify-content: space-between; padding: 0 18px 28px; box-sizing: border-box; }
@@ -98,35 +98,11 @@
         .arrow { font-size: 30px; line-height: 1; color: #061942; }
         @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .company-sidebar { position: static; } .company-menu { grid-template-columns: repeat(2, 1fr); } .stats-grid { grid-template-columns: repeat(2, 1fr); } .content-grid { grid-template-columns: 1fr; } }
         @media (max-width: 650px) { .main { padding: 22px 14px; } .topbar, .top-user { align-items: flex-start; } .topbar { flex-direction: column; } .company-menu, .stats-grid { grid-template-columns: 1fr; } .welcome-card { padding: 30px 20px; } .welcome-card h2 strong { font-size: 27px; } .activity-row { grid-template-columns: 42px 1fr; } .activity-row time { grid-column: 2; } }
-    </style>
-</head>
-<body>
-    <div class="layout">
-        @include('company.partials.sidebar')
+</style>
+@endpush
 
-        <main class="main">
-            <header class="topbar">
-                <div class="page-title">
-                    <h1>Company Dashboard</h1>
-                    <p>Overview of your hiring activities and company updates.</p>
-                </div>
-                <div class="top-actions">
-                    <button class="bell" type="button">
-                        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
-                        <span>3</span>
-                    </button>
-                    <div class="top-user">
-                        <div class="top-avatar">T</div>
-                        <div>
-                            <h3>TechNova Solutions</h3>
-                            <p>Company</p>
-                        </div>
-                        <button type="button">⌄</button>
-                    </div>
-                </div>
-            </header>
-
-            <section class="welcome-card">
+@section('content')
+<section class="welcome-card">
                 <h2>Welcome back,<strong>TechNova Solutions 👋</strong></h2>
                 <p>Here's what's happening today.</p>
             </section>
@@ -179,7 +155,5 @@
                     </div>
                 </div>
             </section>
-        </main>
-    </div>
-</body>
-</html>
+@endsection
+

@@ -1,3 +1,7 @@
+@extends('fast-track.layouts.app')
+
+@section('title', 'Dashboard - Fast Track')
+
 @php
     $activePage = 'dashboard';
     $menuItems = [
@@ -37,14 +41,9 @@
     ];
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Fast Track</title>
-    <style>
-        * { box-sizing: border-box; }
+@push('styles')
+<style>
+* { box-sizing: border-box; }
         body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f6f9ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .layout { min-height: 100vh; display: grid; grid-template-columns: 250px 1fr; }
@@ -104,47 +103,12 @@
         .rocket { position: absolute; right: 48px; bottom: 28px; width: 155px; height: 155px; border-radius: 50%; background: #e1edff; color: #075fe4; display: flex; align-items: center; justify-content: center; font-size: 58px; transform: rotate(-28deg); }
         @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .sidebar { display: none; } .dashboard-grid { grid-template-columns: 1fr; } }
         @media (max-width: 680px) { .content { padding: 26px 14px; } .topbar { padding: 0 14px; } .cards, .quick-grid { grid-template-columns: 1fr; } .activity-row { grid-template-columns: 38px 1fr; } .activity-row time { grid-column: 2; } .rocket { display: none; } }
-    </style>
-</head>
-<body>
-    <div class="layout">
-        <aside class="sidebar">
-            <a href="/fast-track/dashboard" class="brand"><img src="{{ asset('ofclogo1.png') }}" alt="OnlyFreshers"></a>
-            <nav class="menu">
-                @foreach ($menuItems as $item)
-                    <a class="menu-item {{ $activePage === $item['key'] ? 'active' : '' }}" href="{{ $item['url'] }}">
-                        <span class="menu-icon">{{ $item['icon'] }}</span>
-                        <span>{{ $item['title'] }}</span>
-                    </a>
-                @endforeach
-            </nav>
-            <div class="side-bottom">
-                <a class="bottom-link" href="#"><span class="menu-icon">ST</span><span>Settings</span></a>
-                <a class="bottom-link" href="/fast-track/login"><span class="menu-icon">LO</span><span>Logout</span></a>
-            </div>
-        </aside>
+</style>
+@endpush
 
-        <main class="main">
-            <header class="topbar">
-                <div class="user">
-                    <button class="bell" type="button" aria-label="Notifications">
-                        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
-                        <span>{{ $student['notifications'] }}</span>
-                    </button>
-                    <div class="top-avatar"></div>
-                    <h3>{{ $student['name'] }}</h3>
-                    <button type="button" id="userMenuBtn" aria-label="Open account menu">
-                        <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
-                    </button>
-                    <div class="user-menu" id="userMenu">
-                        <a href="/fast-track/profile">My Profile</a>
-                        <a href="/fast-track/login">Logout</a>
-                    </div>
-                </div>
-            </header>
-
-            <section class="content">
-                <div class="title"><h1>Dashboard</h1></div>
+@section('content')
+<section class="content">
+<div class="title"><h1>Dashboard</h1></div>
                 <div class="welcome"><p>Welcome back,</p><h2>{{ $student['name'] }}!</h2></div>
                 <div class="dashboard-grid">
                     <div>
@@ -183,24 +147,6 @@
                         </article>
                     </div>
                 </div>
-            </section>
-        </main>
-    </div>
-    <script>
-        const userMenuBtn = document.getElementById('userMenuBtn');
-        const userMenu = document.getElementById('userMenu');
-        userMenuBtn.addEventListener('click', function () {
-            userMenu.classList.toggle('show');
-        });
-        document.addEventListener('click', function (event) {
-            if (!userMenu.contains(event.target) && !userMenuBtn.contains(event.target)) {
-                userMenu.classList.remove('show');
-            }
-        });
-    </script>
-</body>
-</html>
-
-
-
+</section>
+@endsection
 

@@ -1,3 +1,8 @@
+@extends('company.layouts.app')
+
+@section('title', 'Purchase Package - OnlyFreshers')
+@section('pageTitle', 'Purchase Package')
+
 @php
     $activePage = 'billing';
 
@@ -14,14 +19,9 @@
     ];
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purchase Package - OnlyFreshers</title>
-    <style>
-        body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
+@push('styles')
+<style>
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .layout { min-height: 100vh; display: grid; grid-template-columns: 250px 1fr; }
         .company-sidebar { background: white; border-right: 1px solid #dce7f8; display: flex; flex-direction: column; justify-content: space-between; padding: 0 18px 28px; box-sizing: border-box; }
@@ -83,32 +83,11 @@
         .benefit p { margin: 0; color: #24344f; font-size: 13px; }
         @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .company-menu { grid-template-columns: repeat(2, 1fr); } .plans, .benefits { grid-template-columns: 1fr; } .benefit { border-right: 0; justify-content: flex-start; } .step-row { grid-template-columns: 1fr; } }
         @media (max-width: 650px) { .main { padding: 0 14px 24px; } .topbar { flex-direction: column; align-items: flex-start; } .company-menu { grid-template-columns: 1fr; } .toggle { grid-template-columns: 1fr; border-radius: 12px; } .plan-card.popular { transform: none; } }
-    </style>
-</head>
-<body>
-    <div class="layout">
-        @include('company.partials.sidebar')
+</style>
+@endpush
 
-        <main class="main">
-            <header class="topbar">
-                <div class="page-heading">
-                    <div class="cart-icon">▣</div>
-                    <div class="page-title"><h1>Purchase Package</h1></div>
-                </div>
-                <div class="top-actions">
-                    <button class="bell" type="button">
-                        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
-                        <span>3</span>
-                    </button>
-                    <div class="top-user">
-                        <div class="top-avatar">T</div>
-                        <div><h3>TechNova Solutions</h3><p>Company</p></div>
-                        <button type="button">⌄</button>
-                    </div>
-                </div>
-            </header>
-
-            <section class="step-row">
+@section('content')
+<section class="step-row">
                 <div class="step"><span>1</span> CHOOSE PLAN</div>
                 <div class="tenure">
                     <strong>Choose Tenure</strong>
@@ -149,11 +128,11 @@
                     </div>
                 @endforeach
             </section>
-        </main>
-    </div>
+@endsection
 
-    <script>
-        document.querySelectorAll('[data-tenure]').forEach(function (button) {
+@push('scripts')
+<script>
+document.querySelectorAll('[data-tenure]').forEach(function (button) {
             button.addEventListener('click', function () {
                 document.querySelectorAll('[data-tenure]').forEach(function (item) {
                     item.classList.remove('active');
@@ -175,6 +154,6 @@
                 alert('Plan selected.');
             });
         });
-    </script>
-</body>
-</html>
+</script>
+@endpush
+

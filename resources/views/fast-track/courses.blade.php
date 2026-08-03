@@ -1,3 +1,7 @@
+@extends('fast-track.layouts.app')
+
+@section('title', 'Fast Track Courses')
+
 @php
     $activePage = 'courses';
     $student = ['name' => 'Ananya Gupta', 'notifications' => 3];
@@ -27,14 +31,10 @@
         ['title' => 'Career Support', 'text' => 'Get placement assistance and interview preparation support.', 'icon' => 'CS'],
     ];
 @endphp
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fast Track Courses</title>
-    <style>
-        * { box-sizing: border-box; }
+
+@push('styles')
+<style>
+* { box-sizing: border-box; }
         body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f6f9ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .layout { min-height: 100vh; display: grid; grid-template-columns: 260px 1fr; }
@@ -92,31 +92,12 @@
         .primary { height: 44px; border: 0; border-radius: 7px; background: #075fe4; color: white; padding: 0 24px; font-size: 13px; font-weight: 700; cursor: pointer; }
         @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .sidebar { display: none; } .course-grid, .benefit-grid { grid-template-columns: repeat(2, 1fr); } .benefit { border-right: 0; } }
         @media (max-width: 650px) { .content { padding: 24px 14px; } .topbar { padding: 0 14px; } .page-head, .quiz { flex-direction: column; align-items: stretch; } .tools { flex-direction: column; align-items: stretch; } .search { width: 100%; } .course-grid, .benefit-grid { grid-template-columns: 1fr; } }
-    </style>
-</head>
-<body>
-    <div class="layout">
-        <aside class="sidebar">
-            <a href="/fast-track/dashboard" class="brand"><img src="{{ asset('ofclogo1.png') }}" alt="OnlyFreshers"></a>
-            <nav class="menu">
-                @foreach ($menuItems as $item)
-                    <a class="menu-item {{ $activePage === $item['key'] ? 'active' : '' }}" href="{{ $item['url'] }}"><span class="menu-icon">{{ $item['icon'] }}</span><span>{{ $item['title'] }}</span></a>
-                @endforeach
-            </nav>
-            <div class="side-bottom"><a class="bottom-link" href="#"><span class="menu-icon">ST</span><span>Settings</span></a><a class="bottom-link" href="/fast-track/login"><span class="menu-icon">LO</span><span>Logout</span></a></div>
-        </aside>
-        <main>
-            <header class="topbar">
-                <button class="hamburger" type="button">=</button>
-                <div class="user">
-                    <button class="bell" type="button"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg><span>{{ $student['notifications'] }}</span></button>
-                    <div class="top-avatar"></div><h3>{{ $student['name'] }}</h3>
-                    <button id="userMenuBtn" type="button"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></button>
-                    <div class="user-menu" id="userMenu"><a href="/fast-track/profile">My Profile</a><a href="/fast-track/login">Logout</a></div>
-                </div>
-            </header>
-            <section class="content">
-                <div class="page-head">
+</style>
+@endpush
+
+@section('content')
+<section class="content">
+<div class="page-head">
                     <div><h1>Fast Track Courses</h1><p>Choose a career track to start your learning journey and get job-ready faster.</p></div>
                     <div class="tools"><input class="search" id="searchInput" placeholder="Search courses..."><button class="filter" id="filterBtn" type="button">Filter</button></div>
                 </div>
@@ -134,34 +115,14 @@
                     <div><h3>Not sure which course is right for you?</h3><p>Take our career guidance quiz and get personalized course recommendations.</p></div>
                     <button class="primary" type="button">Take Career Quiz</button>
                 </article>
-            </section>
-        </main>
-    </div>
-    <script>
-        const courses = @json($courses);
-        const courseGrid = document.getElementById('courseGrid');
-        const searchInput = document.getElementById('searchInput');
-        const userMenuBtn = document.getElementById('userMenuBtn');
-        const userMenu = document.getElementById('userMenu');
+</section>
+@endsection
 
-        function renderCourses(list) {
-            courseGrid.innerHTML = '';
-            list.forEach(function (course, index) {
-                const card = document.createElement('article');
-                card.className = 'card course-card';
-                card.innerHTML =
-                    '<span class="course-icon" style="background:' + course.color + '">' + course.icon + '</span>' +
-                    '<h3>' + course.title + '</h3>' +
-                    (course.badge ? '<span class="badge">' + course.badge + '</span>' : '') +
-                    '<p>' + course.text + '</p>' +
-                    '<div class="meta">' +
-                        '<div class="meta-row"><span>Duration</span><strong>' + course.duration + '</strong></div>' +
-                        '<div class="meta-row"><span>Fees</span><strong>' + course.fees + '</strong></div>' +
-                        '<div class="meta-row"><span>Mode</span><strong>' + course.mode + '</strong></div>' +
-                    '</div>' +
-                    '<button class="view-btn" type="button">View Course</button>';
-                courseGrid.appendChild(card);
-            });
+@push('scripts')
+<script>
+const courses = @json($courses);
+        const courseGrid = document.getElementById('courseGrid');
+        const searchInput = document.getElementById('searchInput'););
         }
 
         searchInput.addEventListener('input', function () {
@@ -182,14 +143,6 @@
                 window.location.href = '/fast-track/course-details';
             }
         });
-
-        userMenuBtn.addEventListener('click', function () { userMenu.classList.toggle('show'); });
-        document.addEventListener('click', function (event) { if (!userMenu.contains(event.target) && !userMenuBtn.contains(event.target)) userMenu.classList.remove('show'); });
         renderCourses(courses);
-    </script>
-</body>
-</html>
-
-
-
-
+</script>
+@endpush

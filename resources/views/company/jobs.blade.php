@@ -1,3 +1,9 @@
+@extends('company.layouts.app')
+
+@section('title', 'My Jobs - OnlyFreshers')
+@section('pageTitle', 'My Jobs')
+@section('pageSubtitle', 'Manage and view all your posted jobs.')
+
 @php
     $activePage = 'jobs';
 
@@ -11,14 +17,9 @@
     ];
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Jobs - OnlyFreshers</title>
-    <style>
-        body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
+@push('styles')
+<style>
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .layout { min-height: 100vh; display: grid; grid-template-columns: 250px 1fr; }
         .company-sidebar { background: white; border-right: 1px solid #dce7f8; display: flex; flex-direction: column; justify-content: space-between; padding: 0 18px 28px; box-sizing: border-box; }
@@ -69,35 +70,11 @@
         .dots { border: 0; background: transparent; font-size: 24px; line-height: 1; cursor: pointer; color: #061942; }
         @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .company-menu { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 650px) { .main { padding: 0 14px 24px; } .topbar, .jobs-head { flex-direction: column; align-items: flex-start; } .company-menu { grid-template-columns: 1fr; } .job-row { grid-template-columns: 1fr; } .job-side { text-align: left; } }
-    </style>
-</head>
-<body>
-    <div class="layout">
-        @include('company.partials.sidebar')
+</style>
+@endpush
 
-        <main class="main">
-            <header class="topbar">
-                <div class="page-title">
-                    <h1>My Jobs</h1>
-                    <p>Manage and view all your posted jobs.</p>
-                </div>
-                <div class="top-actions">
-                    <button class="bell" type="button">
-                        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
-                        <span>3</span>
-                    </button>
-                    <div class="top-user">
-                        <div class="top-avatar">T</div>
-                        <div>
-                            <h3>TechNova Solutions</h3>
-                            <p>Company</p>
-                        </div>
-                        <button type="button">⌄</button>
-                    </div>
-                </div>
-            </header>
-
-            <section class="jobs-card">
+@section('content')
+<section class="jobs-card">
                 <div class="jobs-head">
                     <div class="tabs">
                         <button class="tab active" data-status="Active" type="button">Active (<span id="activeCount">0</span>)</button>
@@ -108,11 +85,11 @@
                 </div>
                 <div class="job-list" id="jobList"></div>
             </section>
-        </main>
-    </div>
+@endsection
 
-    <script>
-        const defaultJobs = @json($defaultJobs);
+@push('scripts')
+<script>
+const defaultJobs = @json($defaultJobs);
         const savedJobs = JSON.parse(localStorage.getItem('companyJobs') || '[]');
         const allJobs = savedJobs.concat(defaultJobs);
         const jobList = document.getElementById('jobList');
@@ -161,6 +138,6 @@
         });
 
         renderJobs('Active');
-    </script>
-</body>
-</html>
+</script>
+@endpush
+

@@ -1,3 +1,12 @@
+@extends('admin.layouts.app')
+
+@section('title', 'Notifications - OnlyFreshers Admin')
+@section('pageTitle', 'Notifications')
+@section('breadcrumb', 'Dashboard > Notifications')
+@section('topbarExtra')
+    <button class="add-button" type="button">+ New Notification</button>
+@endsection
+
 @php
     $activePage = 'notifications';
 
@@ -10,15 +19,9 @@
     ];
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notifications - OnlyFreshers Admin</title>
-
-    <style>
-        body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
+@push('styles')
+<style>
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .admin-layout { min-height: 100vh; display: grid; grid-template-columns: 220px 1fr; }
         .sidebar { background: white; border-right: 1px solid #dce7f8; display: flex; flex-direction: column; justify-content: space-between; padding: 14px 12px 22px; box-sizing: border-box; }
@@ -61,26 +64,11 @@
         .hidden { display: none; }
         @media (max-width: 900px) { .admin-layout { grid-template-columns: 1fr; } .menu { grid-template-columns: repeat(2, 1fr); } .table-box { overflow-x: auto; } table { min-width: 850px; } }
         @media (max-width: 600px) { .main { padding: 24px 16px; } .page-top { flex-direction: column; } .menu { grid-template-columns: 1fr; } .search-wrap { width: 100%; } }
-    </style>
-</head>
-<body>
-    <div class="admin-layout">
-        @include('admin.partials.sidebar')
+</style>
+@endpush
 
-        <main class="main">
-            <div class="page-top">
-                <div class="page-title">
-                    <h1>Notifications</h1>
-                    <div class="breadcrumb">Dashboard &nbsp;&gt;&nbsp; Notifications</div>
-                </div>
-                <button class="add-button" type="button">+ New Notification</button>
-                <div class="user-button">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <circle cx="12" cy="8" r="4"></circle>
-                        <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
-                    </svg>
-                </div>
-            </div>
+@section('content')
+
 
             <section class="table-box">
                 <div class="toolbar">
@@ -127,11 +115,11 @@
 
                 <div id="resultText" class="result-text">Showing {{ count($notifications) }} notifications</div>
             </section>
-        </main>
-    </div>
+@endsection
 
-    <script>
-        const notificationSearch = document.getElementById('notificationSearch');
+@push('scripts')
+<script>
+const notificationSearch = document.getElementById('notificationSearch');
         const notificationRows = document.querySelectorAll('.notification-row');
         const resultText = document.getElementById('resultText');
 
@@ -152,6 +140,7 @@
         }
 
         notificationSearch.addEventListener('input', filterNotifications);
-    </script>
-</body>
-</html>
+</script>
+@endpush
+
+

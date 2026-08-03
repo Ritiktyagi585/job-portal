@@ -1,3 +1,12 @@
+@extends('admin.layouts.app')
+
+@section('title', 'Courses - OnlyFreshers Admin')
+@section('pageTitle', 'Courses')
+@section('breadcrumb', 'Dashboard > Courses')
+@section('topbarExtra')
+    <button class="add-button" type="button">+ Add Course</button>
+@endsection
+
 @php
     $activePage = 'courses';
 
@@ -10,46 +19,25 @@
 
     $categories = ['All', 'Development', 'Data Science', 'Design', 'Marketing', 'Cloud', 'Analytics'];
     $statuses = ['All', 'Active', 'Inactive'];
-    $totalCourses = 48;
-@endphp
-@php
-    $trainingPartners = [
-        ['name' => 'TechLearn Academy', 'person' => 'Rahul Sharma', 'email' => 'rahul@techlearn.com', 'courses' => 12, 'status' => 'Active'],
-        ['name' => 'CodeMentor', 'person' => 'Priya Patel', 'email' => 'priya@codementor.com', 'courses' => 8, 'status' => 'Active'],
-        ['name' => 'DevBridge Institute', 'person' => 'Amit Verma', 'email' => 'amit@devbridge.com', 'courses' => 15, 'status' => 'Active'],
-        ['name' => 'SkillUp Training', 'person' => 'Neha Singh', 'email' => 'neha@skillup.com', 'courses' => 10, 'status' => 'Inactive'],
-        ['name' => 'LearnHub', 'person' => 'Vikram Nair', 'email' => 'vikram@learnhub.com', 'courses' => 7, 'status' => 'Active'],
-    ];
-
-    $approvedTrainingPartners = array_values(array_filter($trainingPartners, function ($partner) {
-        return $partner['status'] === 'Active';
-    }));
-
+    $trainingPartnerNames = ['All', 'CodeVista Academy', 'Skillance Learning', 'DataVance Academy', 'CloudKnot Technologies', 'Logixperts Institute'];
     $courses = [
-        ['name' => 'Full Stack Development', 'mark' => 'code', 'color' => '#075fe4', 'category' => 'Development', 'partner' => $approvedTrainingPartners[0]['name'], 'duration' => '6 Months', 'students' => 320, 'status' => 'Active'],
-        ['name' => 'Data Science with Python', 'mark' => 'chart', 'color' => '#7c55d9', 'category' => 'Data Science', 'partner' => $approvedTrainingPartners[1]['name'], 'duration' => '4 Months', 'students' => 280, 'status' => 'Active'],
-        ['name' => 'UI/UX Design', 'mark' => 'pen', 'color' => '#f05b98', 'category' => 'Design', 'partner' => $approvedTrainingPartners[2]['name'], 'duration' => '3 Months', 'students' => 210, 'status' => 'Active'],
-        ['name' => 'Digital Marketing', 'mark' => 'megaphone', 'color' => '#fb8b24', 'category' => 'Marketing', 'partner' => $approvedTrainingPartners[3]['name'], 'duration' => '3 Months', 'students' => 185, 'status' => 'Inactive'],
-        ['name' => 'Python Programming', 'mark' => 'python', 'color' => '#f5b000', 'category' => 'Development', 'partner' => $approvedTrainingPartners[0]['name'], 'duration' => '4 Months', 'students' => 260, 'status' => 'Active'],
-        ['name' => 'Machine Learning', 'mark' => 'brain', 'color' => '#27c4b6', 'category' => 'Data Science', 'partner' => $approvedTrainingPartners[1]['name'], 'duration' => '6 Months', 'students' => 150, 'status' => 'Inactive'],
-        ['name' => 'Cloud Computing', 'mark' => 'cloud', 'color' => '#1f7af2', 'category' => 'Cloud', 'partner' => $approvedTrainingPartners[2]['name'], 'duration' => '4 Months', 'students' => 130, 'status' => 'Active'],
-        ['name' => 'Business Analytics', 'mark' => 'chart', 'color' => '#8b5cf6', 'category' => 'Analytics', 'partner' => $approvedTrainingPartners[3]['name'], 'duration' => '3 Months', 'students' => 110, 'status' => 'Active'],
+        ['name' => 'Full Stack Development', 'category' => 'Development', 'partner' => 'CodeVista Academy', 'duration' => '6 Months', 'students' => 320, 'status' => 'Active', 'color' => '#075fe4', 'mark' => 'code'],
+        ['name' => 'Data Science with Python', 'category' => 'Data Science', 'partner' => 'DataVance Academy', 'duration' => '4 Months', 'students' => 280, 'status' => 'Active', 'color' => '#7c4fe8', 'mark' => 'chart'],
+        ['name' => 'UI/UX Design', 'category' => 'Design', 'partner' => 'Skillance Learning', 'duration' => '3 Months', 'students' => 210, 'status' => 'Active', 'color' => '#f0529b', 'mark' => 'pen'],
+        ['name' => 'Digital Marketing', 'category' => 'Marketing', 'partner' => 'Logixperts Institute', 'duration' => '3 Months', 'students' => 185, 'status' => 'Inactive', 'color' => '#ff8a1f', 'mark' => 'megaphone'],
+        ['name' => 'Python Programming', 'category' => 'Development', 'partner' => 'CodeVista Academy', 'duration' => '4 Months', 'students' => 260, 'status' => 'Active', 'color' => '#f2b400', 'mark' => 'python'],
+        ['name' => 'Machine Learning', 'category' => 'Data Science', 'partner' => 'DataVance Academy', 'duration' => '6 Months', 'students' => 150, 'status' => 'Inactive', 'color' => '#22bdb1', 'mark' => 'brain'],
+        ['name' => 'Cloud Computing', 'category' => 'Cloud', 'partner' => 'CloudKnot Technologies', 'duration' => '4 Months', 'students' => 130, 'status' => 'Active', 'color' => '#2d7df0', 'mark' => 'cloud'],
+        ['name' => 'Business Analytics', 'category' => 'Analytics', 'partner' => 'DataVance Academy', 'duration' => '3 Months', 'students' => 110, 'status' => 'Active', 'color' => '#845ef7', 'mark' => 'chart'],
     ];
-
-    $trainingPartnerNames = array_merge(['All'], array_column($approvedTrainingPartners, 'name'));
-    $perPage = count($courses);
-    $totalPages = ceil($totalCourses / $perPage);
+    $totalCourses = 48;
+    $perPage = 8;
+    $totalPages = (int) ceil($totalCourses / $perPage);
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses - OnlyFreshers Admin</title>
-
-    <style>
-        body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
+@push('styles')
+<style>
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #061942; background: #f4f8ff; font-weight: 500; }
         a { color: inherit; text-decoration: none; }
         .admin-layout { min-height: 100vh; display: grid; grid-template-columns: 220px 1fr; }
         .sidebar { background: white; border-right: 1px solid #dce7f8; display: flex; flex-direction: column; justify-content: space-between; padding: 14px 12px 22px; box-sizing: border-box; }
@@ -116,29 +104,10 @@
         @media (max-width: 1100px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .filter-box { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 900px) { .admin-layout { grid-template-columns: 1fr; } .menu { grid-template-columns: repeat(2, 1fr); } .table-box { overflow-x: auto; } table { min-width: 1080px; } }
         @media (max-width: 600px) { .main { padding: 24px 16px; } .page-top { flex-direction: column; } .stats-grid, .filter-box, .menu { grid-template-columns: 1fr; } }
-    </style>
-</head>
-<body>
-    <div class="admin-layout">
-        @include('admin.partials.sidebar')
+</style>
+@endpush
 
-        <main class="main">
-            <div class="page-top">
-                <div class="page-title">
-                    <h1>Courses</h1>
-                    <div class="breadcrumb">Dashboard &nbsp;&gt;&nbsp; Courses</div>
-                </div>
-                <div class="top-actions">
-                    <button class="add-button" type="button">+ Add Course</button>
-                    <div class="user-button">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <circle cx="12" cy="8" r="4"></circle>
-                            <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
+@section('content')
             <section class="stats-grid">
                 @foreach ($stats as $stat)
                     <div class="stat-card">
@@ -292,11 +261,11 @@
                     </div>
                 </div>
             </section>
-        </main>
-    </div>
+@endsection
 
-    <script>
-        const courseSearch = document.getElementById('courseSearch');
+@push('scripts')
+<script>
+const courseSearch = document.getElementById('courseSearch');
         const categoryFilter = document.getElementById('categoryFilter');
         const statusFilter = document.getElementById('statusFilter');
         const partnerFilter = document.getElementById('partnerFilter');
@@ -366,6 +335,6 @@
                 }
             });
         });
-    </script>
-</body>
-</html>
+</script>
+@endpush
+
