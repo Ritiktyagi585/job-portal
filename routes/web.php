@@ -2,6 +2,43 @@
 
 use Illuminate\Support\Facades\Route;
 
+function directModeUser(): array
+{
+    return ['name' => 'Ananya Gupta', 'avatar' => asset('student.png'), 'notifications' => 3];
+}
+
+function directModeMenu(): array
+{
+    return [
+        ['key' => 'dashboard', 'title' => 'Dashboard', 'icon' => 'home', 'url' => '/direct-mode/dashboard'],
+        ['key' => 'profile', 'title' => 'My Profile', 'icon' => 'user', 'url' => '/direct-mode/profile'],
+        ['key' => 'assessments', 'title' => 'Assessments', 'icon' => 'clipboard', 'url' => '/direct-mode/assessments'],
+        ['key' => 'jobs', 'title' => 'Jobs', 'icon' => 'briefcase', 'url' => '/direct-mode/jobs'],
+        ['key' => 'applications', 'title' => 'My Applications', 'icon' => 'file', 'url' => '/direct-mode/applications'],
+        ['key' => 'interviews', 'title' => 'Interviews', 'icon' => 'clock', 'url' => '/direct-mode/interviews'],
+        ['key' => 'offers', 'title' => 'Offers', 'icon' => 'chart', 'url' => '/direct-mode/offers'],
+        ['key' => 'activity', 'title' => 'Activity', 'icon' => 'activity', 'url' => '/direct-mode/activity'],
+        ['key' => 'settings', 'title' => 'Settings', 'icon' => 'settings', 'url' => '/direct-mode/settings'],
+        ['key' => 'logout', 'title' => 'Logout', 'icon' => 'logout', 'url' => '#'],
+    ];
+}
+
+function directModeJobs(): array
+{
+    return [
+        ['slug' => 'frontend-developer', 'title' => 'Frontend Developer', 'company' => 'TechNova Solutions', 'logo' => 'TS', 'sub' => 'TechNova', 'location' => 'Bangalore, Karnataka', 'exp' => '0 - 1 Year', 'salary' => 'Rs 4 - Rs 6 LPA', 'posted' => 'Posted 2h ago', 'tone' => 'navy', 'industry' => 'IT Services & Consulting', 'website' => 'www.technovasolutions.com'],
+        ['slug' => 'software-engineer', 'title' => 'Software Engineer', 'company' => 'InfoByte', 'logo' => 'iB', 'sub' => 'InfoByte', 'location' => 'Hyderabad, Telangana', 'exp' => '0 - 2 Years', 'salary' => 'Rs 5 - Rs 8 LPA', 'posted' => 'Posted 1d ago', 'tone' => 'orange', 'industry' => 'Software Development', 'website' => 'www.infobyte.com'],
+        ['slug' => 'react-developer', 'title' => 'React Developer', 'company' => 'CodeWave', 'logo' => 'CW', 'sub' => 'CodeWave', 'location' => 'Pune, Maharashtra', 'exp' => '0 - 2 Years', 'salary' => 'Rs 4 - Rs 7 LPA', 'posted' => 'Posted 2d ago', 'tone' => 'black', 'industry' => 'Product Engineering', 'website' => 'www.codewave.com'],
+        ['slug' => 'backend-developer', 'title' => 'Backend Developer', 'company' => 'DataMinds', 'logo' => 'DT', 'sub' => 'DataMinds', 'location' => 'Remote', 'exp' => '1 - 3 Years', 'salary' => 'Rs 6 - Rs 10 LPA', 'posted' => 'Posted 3d ago', 'tone' => 'purple', 'industry' => 'Data Platforms', 'website' => 'www.dataminds.com'],
+        ['slug' => 'full-stack-developer', 'title' => 'Full Stack Developer', 'company' => 'QuickCode', 'logo' => 'QC', 'sub' => 'QuickCode', 'location' => 'Chennai, Tamil Nadu', 'exp' => '1 - 2 Years', 'salary' => 'Rs 5 - Rs 9 LPA', 'posted' => 'Posted 4d ago', 'tone' => 'green', 'industry' => 'Web Solutions', 'website' => 'www.quickcode.com'],
+    ];
+}
+
+function directModeData(array $extra = []): array
+{
+    return array_merge(['user' => directModeUser(), 'menuItems' => directModeMenu(), 'jobs' => directModeJobs()], $extra);
+}
+
 Route::get('/', function () {
     return view('frontend.index');
 });
@@ -132,6 +169,61 @@ Route::get('/company/settings', function () {
 
 Route::get('/training-partner/login', function () {
     return view('training-partner.login');
+});
+
+Route::get('/direct-mode/login', function () {
+    return view('direct-mode.login');
+});
+
+Route::get('/direct-mode/register', function () {
+    return view('direct-mode.register');
+});
+
+Route::get('/direct-mode/dashboard', function () {
+    return view('direct-mode.dashboard', directModeData());
+});
+
+Route::get('/direct-mode/profile', function () {
+    return view('direct-mode.profile', directModeData());
+});
+
+Route::get('/direct-mode/assessments', function () {
+    return view('direct-mode.assessments', directModeData());
+});
+
+Route::get('/direct-mode/jobs', function () {
+    return view('direct-mode.jobs', directModeData());
+});
+
+Route::get('/direct-mode/jobs/{slug}', function (string $slug) {
+    $jobs = directModeJobs();
+    $job = collect($jobs)->firstWhere('slug', $slug);
+    abort_unless($job, 404);
+
+    return view('direct-mode.job-details', directModeData([
+        'job' => $job,
+        'similarJobs' => collect($jobs)->where('slug', '!=', $slug)->take(3)->values()->all(),
+    ]));
+});
+
+Route::get('/direct-mode/applications', function () {
+    return view('direct-mode.applications', directModeData());
+});
+
+Route::get('/direct-mode/interviews', function () {
+    return view('direct-mode.interviews', directModeData());
+});
+
+Route::get('/direct-mode/offers', function () {
+    return view('direct-mode.offers', directModeData());
+});
+
+Route::get('/direct-mode/activity', function () {
+    return view('direct-mode.activity', directModeData());
+});
+
+Route::get('/direct-mode/settings', function () {
+    return view('direct-mode.settings', directModeData());
 });
 
 Route::get('/training-partner/dashboard', function () {

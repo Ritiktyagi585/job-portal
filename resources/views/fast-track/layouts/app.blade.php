@@ -9,6 +9,56 @@
     <title>@yield('title', 'Fast Track')</title>
     @stack('styles')
     <style>
+        .menu-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .topbar .hamburger,
+        .topbar .bell,
+        .topbar #userMenuBtn {
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            border: 0 !important;
+            border-radius: 0;
+            background: transparent !important;
+            box-shadow: none !important;
+            outline: 0;
+            appearance: none;
+            -webkit-appearance: none;
+            color: #061942;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0;
+            line-height: 0;
+        }
+
+        .topbar #userMenuBtn {
+            width: 24px;
+            height: 24px;
+        }
+
+        .topbar .hamburger svg,
+        .topbar .bell svg,
+        .topbar #userMenuBtn svg {
+            width: 21px;
+            height: 21px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            display: block;
+        }
+
         .fast-track-backdrop {
             display: none;
         }
